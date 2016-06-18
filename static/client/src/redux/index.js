@@ -4,5 +4,7 @@ import rootReducer from './rootReducer'
 
 export default createStore(
   rootReducer,
-  {}
+  {
+    text: ''
+  }
 );
