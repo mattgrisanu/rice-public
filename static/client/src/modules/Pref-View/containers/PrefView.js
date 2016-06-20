@@ -21,7 +21,7 @@ class PrefView extends Component {
 
   componentDidMount() {
     const { preferences, pickedPrefs } = this.props;
-
+    //update state.user.user_id = tesetData.clientId
   }
 
   addPref(pref_id) {
