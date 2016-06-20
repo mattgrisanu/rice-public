@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actions } from './../ducks/pref-view-ducks.js';
+// import { actions } from './../ducks/home-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
-import PrefEntry from './../components/PrefEntry';
+// import PrefEntry from './../components/PrefEntry';
 import axios from 'axios';
 
-/*testData from Auth0
-{ email: '',
-  name: '', given_name: '', family_name: '',
-  picture: '',
-  clientID: ''
-}
-*/
-class PrefView extends Component {
+class HomeView extends Component {
 
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
-    const { preferences, pickedPrefs } = this.props;
+    const { user, checkPref } = this.props;
 
-  }
-
-  addPref(pref_id) {
-    console.log("INSIDE addpref", pref_id)
-    this.actions.checkPref(pref_id)
   }
 
   handleSubmit() {
@@ -44,17 +32,13 @@ class PrefView extends Component {
     //   })
     //   .catch(function (error) {
     //     console.log(error);
-          //need to handle user db error
     //   });
-    browserHistory.push('/onboarding/addfriends');
-
   }
 
   render () {
     return (
-      <div className='PrefView-container'>
-        {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
-        <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
+      <div className='HomeView-container'>
+        Home View
       </div>
     );
   }
@@ -62,9 +46,10 @@ class PrefView extends Component {
 
 
 const mapStateToProps = function (state) {
+  console.log("mapStateSTATE", state)
   return {
-    pickedPrefs: state.user.preferences,
-    preferences: state.preferences
+    pickedPrefs: state.checkPref,
+    user: state.data.user
   }
 }
 
@@ -72,5 +57,5 @@ const mapDispatchToProps = function (dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
 }
 
-PrefView = connect(mapStateToProps, mapDispatchToProps)(PrefView);
-export default PrefView;
+HomeView = connect(mapStateToProps, mapDispatchToProps)(HomeView);
+export default HomeView;

@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
-import { reducers } from './../modules/landing-view/ducks/ducks'
+import { user, restaurant, preferences } from './../modules/landing-view/ducks/ducks'
 import { checkPref } from './../modules/Pref-View/ducks/pref-view-ducks'
 
+
 const rootReducer = combineReducers({
-  data: reducers,
-  checkPref: checkPref
+  user: user,
+  restaurant: restaurant,
+  preferences: preferences,
+  // userPreferences: checkPref
 
 });
 
