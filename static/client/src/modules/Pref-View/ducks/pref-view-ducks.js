@@ -1,18 +1,3 @@
-// var intialstate = {
-//     user: {
-//       user_id: '',
-//       friends: [],
-//       preferences:[]
- //     },
-//     restaurant: {
-//       restaurant_id: ''
-//     },
-//     preferences: {
-//       all: [
-//         'American', 'Chinese', 'Indian', 'Italian', 'Mexican', 'Korean', 'Japanese', 'Thai', 'Vietnamese', 'Breakfast', 'Pizza', 'Food Court', 'Cafe', 'Vegetarian'
-//         ]
-//     }
-//   }
 module.exports = {
   actions: {
     'checkPref': function (pref_id) {

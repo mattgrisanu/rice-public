@@ -12,7 +12,6 @@ class Landing extends Component {
 
   componentDidMount() {
     const { store } = this.context;
-    console.log('Kat"s context', this.context, this.store, this.state, this);
   }
   // _hiddenAction () {
   //   <button onClick={ function () { 
