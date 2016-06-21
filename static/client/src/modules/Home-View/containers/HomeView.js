@@ -20,10 +20,10 @@ class HomeView extends Component {
   handleSubmit() {
     //somewhere we have testData
     console.log('in HOME VIEW handleSubmit', this.props.pickedPrefs);
+
     // const instance = axios.create({
     //   baseURL: 'http://localhost:3001/api'
     // });
-    // console.log('axios instance' ,instance);
 
     // instance.post('/users/users', {
     //     user_id: 'testData.clientID',
