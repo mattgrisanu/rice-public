@@ -9,6 +9,10 @@ import SearchInput, {createFilter} from 'react-search-input'
 
 const KEYS_TO_FILTERS = ['name', 'email']
 
+const instance = axios.create({
+  baseURL: 'http://localhost:3001/api'
+});
+
 class FriendView extends Component {
 
   constructor(props) {
@@ -26,16 +30,17 @@ class FriendView extends Component {
   }
 
   getAllUsers () {
-    // axios.get('/api/users/users')
-    //   .then(function (response) {
-    //     console.log(response);
-    //     this.setState = {
-    //       allUsers: [response]
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    instanct.get('/users/users')
+      .then(function (response) {
+        console.log('db response for GET users', response);
+        // this.setState = {
+        //   allUsers: [response]
+        // }
+      })
+      .catch(function (error) {
+        console.log(error);
+        // handle user db error
+      });
 
   }
 
@@ -45,19 +50,22 @@ class FriendView extends Component {
   }
 
   handleSubmit() {
-    console.log("pushed handleSubmit")
-    // axios.post('/api/users/friends', {
-    //     user_id: 'this.props.user.clientId',
-    //     friends: [this.props.friends (friends_id1, friends_id2)],
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-          //browserHistory.push('/home');
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-          //need to handle user db error
-    //   });
+    console.log("FRIEND VIEW handleSubmit", this.props.friends);
+
+    instance.post('/users/friends', {
+        // user_id: 'this.props.user.clientId',
+        user_id: 'testData.clientID',
+        // friends: [this.props.friends (friends_id1, friends_id2)],
+        friends: this.props.friends
+      })
+      .then(function (response) {
+        console.log('db response for POST friends', response);
+        browserHistory.push('/home');
+      })
+      .catch(function (error) {
+        console.log(error);
+        // need to handle friend db error
+      });
   }
 
   searchUpdated (term) {
