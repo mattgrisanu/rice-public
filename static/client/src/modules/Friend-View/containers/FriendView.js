@@ -5,14 +5,19 @@ import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
 import FriendEntry from './../components/FriendEntry';
 import axios from 'axios';
+import SearchInput, {createFilter} from 'react-search-input'
+
+const KEYS_TO_FILTERS = ['name', 'email']
 
 class FriendView extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      allUsers: [{clientId: 'user1ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user2ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user3ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user4ID', name: 'user1', email: 'lala@gmail.com'}]
+      allUsers: [{clientId: 'user1ID', name: 'user1', email: 'lala1@gmail.com'}, {clientId: 'user2ID', name: 'user2', email: 'lala2@gmail.com'}, {clientId: 'user3ID', name: 'user3', email: 'lala3@gmail.com'}, {clientId: 'user4ID', name: 'user4', email: 'lala4@gmail.com'}],
+      searchTerm: ''
     }
+    this.addFriend = this.addFriend.bind(this)
   }
 
   componentDidMount() {
@@ -36,7 +41,7 @@ class FriendView extends Component {
 
   addFriend(friend_id) {
     console.log("INSIDE addFriend", friend_id)
-    this.actions.addFriend(friend_id)
+    this.props.actions.addFriend(friend_id)
   }
 
   handleSubmit() {
@@ -55,11 +60,24 @@ class FriendView extends Component {
     //   });
   }
 
+  searchUpdated (term) {
+    this.setState({searchTerm: term})
+  }
 
   render () {
+    const filteredFriends = this.state.allUsers.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
+    const self = this;
     return (
       <div className='FriendView-container'>
-        {this.state.allUsers.map((user, i) =>  <FriendEntry {...this.props} addFriend={this.addFriend} key={i} user={user} />)}
+       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+        {filteredFriends.map((user, i) =>  {
+          return (
+            <div className='FriendEntry-container' key={i} onClick={function () { this.addFriend(user.clientId) }.bind(this)}>
+              <div className='FriendEntry-fields'>{user.name}</div>
+              <div className='FriendEntry-fields'>{user.email}</div>
+            </div>
+          )
+        })}
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
     );

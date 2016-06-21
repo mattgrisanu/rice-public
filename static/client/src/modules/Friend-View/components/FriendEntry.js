@@ -10,8 +10,8 @@ export default class FriendEntry extends Component {
   render() {
     return (
       <div className='FriendEntry-container' onClick={function() {this.props.addFriend(this.props.user.clientId)}.bind(this)}>
-        <div className='FriendEntry-fields'>I am {this.props.user.name}</div>
-        <div className='FriendEntry-fields'>Email {this.props.user.email}</div>
+        <div className='FriendEntry-fields'>{this.props.user.name}</div>
+        <div className='FriendEntry-fields'>{this.props.user.email}</div>
       </div>
     )
   }
