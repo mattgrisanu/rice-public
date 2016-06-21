@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import { user, restaurant, preferences } from './../modules/landing-view/ducks/ducks'
-
+// import { restaurant, preferences } from './../modules/landing-view/ducks/ducks'
+import user from './UserReducer'
+import restaurant from './RestaurantReducer'
+import preferences from './PreferencesReducer'
 
 const rootReducer = combineReducers({
   user: user,
