@@ -11,7 +11,7 @@ class FriendView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allUsers: [{user_id: 'user1ID', name: 'user1', email: 'lala@gmail.com'}, {user_id: 'user2ID', name: 'user1', email: 'lala@gmail.com'}, {user_id: 'user3ID', name: 'user1', email: 'lala@gmail.com'}, {user_id: 'user4ID', name: 'user1', email: 'lala@gmail.com'}]
+      allUsers: [{clientId: 'user1ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user2ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user3ID', name: 'user1', email: 'lala@gmail.com'}, {clientId: 'user4ID', name: 'user1', email: 'lala@gmail.com'}]
     }
   }
 
@@ -42,8 +42,8 @@ class FriendView extends Component {
   handleSubmit() {
     console.log("pushed handleSubmit")
     // axios.post('/api/users/friends', {
-    //     user_id: 'this.props.user.user_id',
-    //     friends: [this.props.friends],
+    //     user_id: 'this.props.user.clientId',
+    //     friends: [this.props.friends (friends_id1, friends_id2)],
     //   })
     //   .then(function (response) {
     //     console.log(response);

@@ -10,7 +10,7 @@ import axios from 'axios';
 { email: '',
   name: '', given_name: '', family_name: '',
   picture: '',
-  clientID: ''
+  clientId: ''
 }
 */
 class PrefView extends Component {
@@ -33,7 +33,7 @@ class PrefView extends Component {
     //somewhere we have testData
     console.log('in handleSubmit', this.props.pickedPrefs)
     // axios.post('/api/users/users', {
-    //     id: 'testData.clientID',
+    //     user_id: 'testData.clientID',
     //     name: 'testData.name',
     //     email: 'testData.email',
     //     preferences: this.props.pickedPrefs
