@@ -33,25 +33,27 @@ class PrefView extends Component {
     //somewhere we have testData
     console.log('in PREF VIEW handleSubmit', this.props.pickedPrefs)
     
-    const instance = axios.create({
-      baseURL: 'http://localhost:3001/api'
-    });
-    console.log(instance.post);
+    // const instance = axios.create({
+    //   baseURL: 'http://localhost:3001/api'
+    // });
+    // console.log(instance.post);
 
-    instance.post('/users/users', {
-        user_id: 'testData.clientID',
-        name: 'testData.name',
-        email: 'testData.email',
-        preferences: this.props.pickedPrefs
-      })
-      .then(function (response) {
-        console.log('db response from Pref View', response);
+    // instance.post('/users/users', {
+    //     user_id: 'testData.clientID',
+    //     name: 'testData.name',
+    //     email: 'testData.email',
+    //     preferences: this.props.pickedPrefs
+    //   })
+    //   .then(function (response) {
+    //     console.log('db response from Pref View', response);
+    //     browserHistory.push('/onboarding/addfriends');
+    //   })
+    //   .catch(function (error) {
+    //     console.log('DB error', error);
+    //     // handle db error
+    //   });
         browserHistory.push('/onboarding/addfriends');
-      })
-      .catch(function (error) {
-        console.log('DB error', error);
-        // handle db error
-      });
+    
 
   }
 

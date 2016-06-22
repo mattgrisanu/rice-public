@@ -27,20 +27,22 @@ class FriendView extends Component {
   componentDidMount() {
     const { user, friends } = this.props;
     //call this.getAllUsers() to update state with users from DB
+    this.getAllUsers();
   }
 
   getAllUsers () {
-    instanct.get('/users/users')
+    instance.get('/users/users')
       .then(function (response) {
         console.log('db response for GET users', response);
-        // this.setState = {
-        //   allUsers: [response]
-        // }
-      })
+        this.setState({
+          allUsers: response.data
+        })
+      }.bind(this))
       .catch(function (error) {
         console.log(error);
         // handle user db error
       });
+      ///DONT DISPLAY YOUR OWN DATA
 
   }
 
