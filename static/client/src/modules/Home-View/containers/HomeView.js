@@ -19,16 +19,21 @@ class HomeView extends Component {
 
   handleSubmit() {
     //somewhere we have testData
-    console.log('in handleSubmit', this.props.pickedPrefs)
-    // axios.post('/api/users/users', {
-    //     id: 'testData.clientID',
+    console.log('in HOME VIEW handleSubmit', this.props.pickedPrefs);
+
+    // const instance = axios.create({
+    //   baseURL: 'http://localhost:3001/api'
+    // });
+
+    // instance.post('/users/users', {
+    //     user_id: 'testData.clientID',
     //     name: 'testData.name',
     //     email: 'testData.email',
     //     preferences: this.props.pickedPrefs
     //   })
     //   .then(function (response) {
-    //     console.log(response);
-          //browserHistory.push('/home');
+    //     console.log('Response from POST to /api/users/users =>', response);
+    //     browserHistory.push('/home');
     //   })
     //   .catch(function (error) {
     //     console.log(error);
