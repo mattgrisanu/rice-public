@@ -22,7 +22,7 @@ export default () => {
   return (
     <Route component={CoreLayout}>
       <Route path="/" component={LandingLayout}>
-        <IndexRoute component={PrefView} />
+        <IndexRoute component={LandingLayout} />
         <Route path="onboarding/preferences" component={PrefView} />
         <Route path="home" component={HomeView} />
         <Route path="onboarding/addfriends" component={FriendView} />

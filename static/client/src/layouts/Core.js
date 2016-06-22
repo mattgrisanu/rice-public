@@ -1,9 +1,17 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
 function CoreLayout({ children }) {
   return (
     <div className="app" id="app">
-      {children}
+      <Navbar/>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            {children}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
