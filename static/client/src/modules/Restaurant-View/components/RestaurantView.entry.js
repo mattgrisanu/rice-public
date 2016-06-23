@@ -50,7 +50,7 @@ const RestaurantViewEntry = React.createClass({
                   defaultCenter={[this.props.map.centerLat, this.props.map.centerLng]}
                   defaultZoom={this.props.map.initialZoom}
                 >
-                  <div className="place" lat={this.props.restaurant.location.lat} lng={this.props.restaurant.location.lng}>
+                  <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
                     <FontAwesome name="map-marker" size="2x" />
                     Place Name
                   </div>

@@ -13,7 +13,7 @@ var restaurant = (state = intialstate.restaurant, action) => {
 
       case 'RESTAURANT_UPDATE':
         console.log('reducer RESTAURANT_UPDATE', action);
-
+        return action.restaurant;
 
       default:
         return state;

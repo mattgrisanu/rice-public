@@ -42,17 +42,25 @@ class RestaurantView extends Component {
     // retrieve restaurant data
     axios.get('/api/business/info')
       .then(function (response) {
-        console.log('/api/business/info', response.data);
-        actions.restaurantUpdate(response.data);
-      });
+        console.log('[RestaurantView] /api/business/info', response.data);
+        this.props.actions.restaurantUpdate(response.data);
+      }.bind(this));
   }
 
   render() {
-    return (
-      <div className="RestaurantView">
-
-      </div>
-    );
+    if (typeof this.props.restaurant.latitude !== undefined) {
+      return (
+        <div className="RestaurantView">
+          <RestaurantViewEntry {...this.props} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="RestaurantView">
+          Waiting for restaurant...
+        </div>
+      );
+    }
   }
 }
 
