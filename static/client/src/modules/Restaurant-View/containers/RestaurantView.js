@@ -19,7 +19,7 @@ class RestaurantView extends Component {
   render() {
     return (
       <div className="RestaurantView">
-        <RestaurantViewEntry />
+        <RestaurantViewEntry {...this.props} />
       </div>
     );
   }
