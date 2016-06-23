@@ -37,7 +37,7 @@ const RestaurantViewEntry = React.createClass({
                 Place Name
               </div>
 
-              <div className="place" lat={this.props.mapCenterLat + .005} lng={this.props.mapCenterLng + .005}>
+              <div className="place" lat={this.props.mapCenterLat + 0.005} lng={this.props.mapCenterLng + 0.005}>
                 <FontAwesome name="dot-circle-o" size="2x" />
                 Current Location
               </div>
