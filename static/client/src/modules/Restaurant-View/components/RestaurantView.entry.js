@@ -36,6 +36,11 @@ const RestaurantViewEntry = React.createClass({
                 <FontAwesome name="map-marker" size="2x" />
                 Place Name
               </div>
+
+              <div className="place" lat={this.props.mapCenterLat + .005} lng={this.props.mapCenterLng + .005}>
+                <FontAwesome name="dot-circle-o" size="2x" />
+                Current Location
+              </div>
             </GoogleMap>
           </div>
           <div className="col-md-3"></div>
