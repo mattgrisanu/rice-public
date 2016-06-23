@@ -8,6 +8,14 @@ import { actions } from '../ducks/RestaurantView.actions';
 import RestaurantViewEntry from '../components/RestaurantView.entry';
 
 class RestaurantView extends Component {
+  componentDidMount() {
+    this.retrieveRestaurant();
+  }
+
+  retrieveRestaurant() {
+    console.log('[RestaurantView] retrieveRestaurant');
+  }
+
   render() {
     return (
       <div className="RestaurantView">
