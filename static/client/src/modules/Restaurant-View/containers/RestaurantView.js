@@ -10,10 +10,12 @@ import RestaurantViewEntry from '../components/RestaurantView.entry';
 class RestaurantView extends Component {
   componentDidMount() {
     this.retrieveRestaurant();
+    // const { restaurant, user } = this.props;
   }
 
   retrieveRestaurant() {
     console.log('[RestaurantView] retrieveRestaurant');
+    // axios get request
   }
 
   render() {
@@ -26,7 +28,10 @@ class RestaurantView extends Component {
 }
 
 const mapStateToProps = function (state) {
-  return state;
+  return {
+    // user: state.user,
+    // restaurant: state.restaurant,
+  };
 };
 
 const mapDispatchToProps = function (dispatch) {
