@@ -13,6 +13,7 @@
     "autoprefixer": "^6.1.0",
     "aws-sdk": "^2.2.37",
     "axios": "^0.9.1",
+    "axios-mock-adapter": "^1.4.0",
     "bootstrap": "github:twbs/bootstrap#v4.0.0-alpha",
     "bootstrap-loader": "^1.0.7",
     "bootstrap-sass": "^3.3.5",
