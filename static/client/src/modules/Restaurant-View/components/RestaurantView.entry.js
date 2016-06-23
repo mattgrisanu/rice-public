@@ -8,6 +8,8 @@ const RestaurantViewEntry = React.createClass({
     mapCenterLat: React.PropTypes.number,
     mapCenterLng: React.PropTypes.number,
     styles: React.PropTypes.object,
+    locUser: React.PropTypes.object,
+    locRestaurant: React.PropTypes.object,
   },
 
   getDefaultProps() {
@@ -17,6 +19,14 @@ const RestaurantViewEntry = React.createClass({
       mapCenterLng: -79.4073126,
       styles: {
         height: '400px',
+      },
+      locUser: {
+        lat: 43.6425569,
+        lng: -79.4073126,
+      },
+      locRestaurant: {
+        lat: 43.6475569,
+        lng: -79.4103126,
       },
     };
   },
@@ -32,12 +42,12 @@ const RestaurantViewEntry = React.createClass({
               defaultCenter={[this.props.mapCenterLat, this.props.mapCenterLng]}
               defaultZoom={this.props.initialZoom}
             >
-              <div className="place" lat={this.props.mapCenterLat} lng={this.props.mapCenterLng}>
+              <div className="place" lat={this.props.locRestaurant.lat} lng={this.props.locRestaurant.lng}>
                 <FontAwesome name="map-marker" size="2x" />
                 Place Name
               </div>
 
-              <div className="place" lat={this.props.mapCenterLat + 0.005} lng={this.props.mapCenterLng + 0.005}>
+              <div className="place" lat={this.props.locUser.lat} lng={this.props.locUser.lng}>
                 <FontAwesome name="dot-circle-o" size="2x" />
                 Current Location
               </div>
