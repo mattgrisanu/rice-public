@@ -67,7 +67,7 @@ let RestaurantView = React.createClass({
     // setup mock adapter
     const mock = new MockAdapter(axios);
 
-    // mock for '/api/business/info?name=Tadu Ethopian Cafe'
+    // mock for '/api/business/info?name=RESTAURANT.NAME'
     mock.onGet(/\/api\/business\/info\?name\=.*/g).reply(200,
       {
         id: 1,
