@@ -26,9 +26,9 @@ export default () => {
       <Route path="/" component={LandingLayout}>
         <IndexRoute component={SignIn} />
         <Route path="signin" component={SignIn} />
-        <Route path="onboarding/preferences" component={PrefView} />
-        <Route path="home" component={HomeView} />
-        <Route path="onboarding/addfriends" component={FriendView} />
+        <Route path="home" component={authenticatedComponent(HomeView)} />
+        <Route path="onboarding/preferences" component={authenticatedComponent(PrefView)} />
+        <Route path="onboarding/addfriends" component={authenticatedComponent(FriendView)} />
         <Route path="restaurant/:id" component={authenticatedComponent(RestaurantView)} />
       </Route>
     </Route>
