@@ -51,31 +51,35 @@ let RestaurantView = React.createClass({
   },
 
   render() {
+    let view;
+
     if (typeof this.props.restaurant.latitude !== undefined) {
-      return (
+      view = (
         <div className="RestaurantView">
           <RestaurantViewEntry {...this.props} />
         </div>
       );
     } else {
-      return (
+      view = (
         <div className="RestaurantView">
           Waiting for restaurant...
         </div>
       );
     }
+
+    return view;
   },
 });
 
-const mapStateToProps = function (state) {
+function mapStateToProps(state) {
   return {
     restaurant: state.restaurant,
   };
-};
+}
 
-const mapDispatchToProps = function (dispatch) {
+function mapDispatchToProps(dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
-};
+}
 
 RestaurantView = connect(mapStateToProps, mapDispatchToProps)(RestaurantView);
 
