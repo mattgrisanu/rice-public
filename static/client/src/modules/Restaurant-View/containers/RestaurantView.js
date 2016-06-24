@@ -11,19 +11,64 @@ let RestaurantView = React.createClass({
   propTypes: {
     actions: React.PropTypes.object,
     restaurant: React.PropTypes.object,
+    recommendations: React.PropTypes.array,
   },
 
   componentDidMount() {
-    this.retrieveRestaurant();
+    const restaurant = this.retrieveRecommendations();
+    this.retrieveRestaurant(restaurant);
   },
 
-  retrieveRestaurant() {
+  retrieveRecommendations() {
+    console.log('[RestaurantView] retrieveRecommendations');
+
+    // mock recommendations array
+    const mockRecommendations = [
+      {
+        cuisine: 'ethiopian',
+        id: 'unlessstring',
+        name: 'Tadu Ethopian Kitchen',
+        rating: 0.25202,
+        userRated: false,
+      },
+      {
+        cuisine: 'cafes',
+        id: 'unlessstring',
+        name: 'The Beat Coffeehouse & Records',
+        rating: 0.20202,
+        userRated: false,
+      },
+      {
+        cuisine: 'french',
+        id: 'unlessstring',
+        name: 'Sunrise Coffee',
+        rating: 0.20202,
+        userRated: false,
+      },
+    ];
+
+    // retrieve restaurant recommendations from store
+    const recommendations = this.props.recommendations || mockRecommendations;
+    console.log('[RestaurantView] recommendations', recommendations);
+
+    // return the next recommendation in the store
+    return recommendations[0] || undefined;
+  },
+
+  retrieveRestaurant(recommendation) {
     console.log('[RestaurantView] retrieveRestaurant');
+
+    // did we receive a restaurant?
+    console.log('restaurant', recommendation);
+    if (!recommendation) {
+      return;
+    }
 
     // setup mock adapter
     const mock = new MockAdapter(axios);
 
-    mock.onGet('/api/business/info').reply(200,
+    // mock for '/api/business/info?name=Tadu Ethopian Cafe'
+    mock.onGet(/\/api\/business\/info\?name\=.*/g).reply(200,
       {
         id: 1,
         business_id: 'tadu-ethiopian-kitchen-san-francisco-3',
@@ -43,7 +88,9 @@ let RestaurantView = React.createClass({
     );
 
     // retrieve restaurant data
-    axios.get('/api/business/info')
+    console.log('GET', '/api/business/info?name=' + recommendation.name);
+
+    axios.get('/api/business/info?name=' + recommendation.name)
       .then(function handleResponse(response) {
         console.log('[RestaurantView] /api/business/info', response.data);
         this.props.actions.restaurantUpdate(response.data);
@@ -74,6 +121,7 @@ let RestaurantView = React.createClass({
 function mapStateToProps(state) {
   return {
     restaurant: state.restaurant,
+    recommendations: state.recommendation,
   };
 }
 
