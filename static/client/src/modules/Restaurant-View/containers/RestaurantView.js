@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { browserHistory, Link } from 'react-router';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import * as actions from '../ducks/RestaurantView.actions';
 import RestaurantViewEntry from '../components/RestaurantView.entry';
 
-class RestaurantView extends Component {
+let RestaurantView = React.createClass({
+  propTypes: {
+    actions: React.PropTypes.object,
+    restaurant: React.PropTypes.object,
+  },
+
   componentDidMount() {
     this.retrieveRestaurant();
-    // const { restaurant, user } = this.props;
-  }
+  },
 
   retrieveRestaurant() {
     console.log('[RestaurantView] retrieveRestaurant');
@@ -41,11 +44,11 @@ class RestaurantView extends Component {
 
     // retrieve restaurant data
     axios.get('/api/business/info')
-      .then(function (response) {
+      .then(function handleResponse(response) {
         console.log('[RestaurantView] /api/business/info', response.data);
         this.props.actions.restaurantUpdate(response.data);
       }.bind(this));
-  }
+  },
 
   render() {
     if (typeof this.props.restaurant.latitude !== undefined) {
@@ -61,12 +64,11 @@ class RestaurantView extends Component {
         </div>
       );
     }
-  }
-}
+  },
+});
 
 const mapStateToProps = function (state) {
   return {
-    // user: state.user,
     restaurant: state.restaurant,
   };
 };

@@ -17,7 +17,10 @@ const restaurant = (state = intialstate.restaurant, action) => {
 
     case 'RESTAURANT_ACCEPT':
       console.log('reducer RESTAURANT_ACCEPT', action);
-      return state;
+      return {
+        ...state,
+        toRate: true
+      };
 
     case 'RESTAURANT_DECLINE':
       console.log('reducer RESTAURANT_DECLINE', action);
