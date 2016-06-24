@@ -10,6 +10,8 @@
   "author": "Daniel Conger <dconger2@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "auth0-js": "^7.0.3",
+    "auth0-lock": "^9.2.1",
     "autoprefixer": "^6.1.0",
     "aws-sdk": "^2.2.37",
     "axios": "^0.9.1",
@@ -45,7 +47,8 @@
     "reselect": "^2.0.3",
     "resolve-url": "^0.2.1",
     "resolve-url-loader": "^1.4.3",
-    "rimraf": "^2.5.1"
+    "rimraf": "^2.5.1",
+    "transform-loader": "^0.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.3.17",
