@@ -24,7 +24,9 @@ const restaurant = (state = intialstate.restaurant, action) => {
 
     case 'RESTAURANT_DECLINE':
       console.log('reducer RESTAURANT_DECLINE', action);
-      return state;
+      return {
+        ...state,
+      };
 
     default:
       return state;
