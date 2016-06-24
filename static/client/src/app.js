@@ -25,6 +25,7 @@ export default () => {
     <Route component={CoreLayout}>
       <Route path="/" component={LandingLayout}>
         <IndexRoute component={SignIn} />
+        <Route path="signin" component={SignIn} />
         <Route path="onboarding/preferences" component={PrefView} />
         <Route path="home" component={HomeView} />
         <Route path="onboarding/addfriends" component={FriendView} />
