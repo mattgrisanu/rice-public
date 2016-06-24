@@ -10,8 +10,11 @@ const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
 
-const instance = axios.create({
+const RecInstance = axios.create({
   baseURL: 'http://localhost:3003/api',
+});
+const BusinessInstance = axios.create({
+  baseURL: 'http://localhost:3002/api',
 });
 
 class HomeView extends Component {
@@ -22,7 +25,7 @@ class HomeView extends Component {
       selected: locationsArr[0],
     };
     this._onSelect = this._onSelect.bind(this);
-    this.axiosPost = this.axiosPost.bind(this);
+    this.axiosSoloPost = this.axiosSoloPost.bind(this);
   }
 
   componentDidMount() {
@@ -37,36 +40,61 @@ class HomeView extends Component {
     this.props.actions.changeLocation(option.value);
   }
 
-  axiosPost() {
+  axiosSoloPost() {
     const users = [this.props.user.user_id].concat(this.props.friends);
-    const preferences = this.props.preferences;
-    instance.post('/recommendation/getRec', {
-      user_ids: users,
-      preferences: {
-        categories: preferences,
-      }
-    })
-    .then(function (response) {
-      console.log('db response for POST recommendation', response);
-      //action call to save to store all the recs
-      //yelp api call
-
-
-
-      browserHistory.push('/restaurant');
-    })
-    .catch(function (error) {
-      console.log(error);
-      // need to handle friend db error
-    });
+    const userPreferences = this.props.preferences;
+    const userLocation = this.props.location;
+    // RecInstance.post('/recommendation/getRec', {
+    //   user_ids: users,
+    //   preferences: {
+    //     categories: userPreferences,
+    //   },
+    //   location: userLocation,
+    // })
+    // .then(function (response) {
+    //   console.log('db response for POST recommendation', response);
+    //   this.props.actions.addRecs(response);
+    //   //yelp api call
+    //   BusinessInstance.post('/business/yelp', response)
+    //     .then(function (successAdd) {
+    //       console.log('back from saving yelp data pushing user to /restaurant')
+    //       browserHistory.push('/restaurant');
+    //     });
+    // }.bind(this))
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    var response =  {
+    items: [{
+      cuisine: "cafes",
+      id: "unlessstring",
+      name: "The Beat Coffeehouse & Records",
+      rating: 0.20202,
+      userRated: false
+    },
+    {
+      cuisine: "french",
+      id: "unlessstring",
+      name: "Sunrise Coffee",
+      rating: 0.20202,
+      userRated: false
+    }]
+  }
+    this.props.actions.addRecs(response);
+    //yelp api call
+    BusinessInstance.post('/business/yelp', response)
+      .then(function (successAdd) {
+        console.log('back from saving yelp data pushing user to /restaurant')
+        browserHistory.push('/restaurant');
+      });
   }
 
   render() {
     return (
       <div className="container HomeView-container">
         <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
-        <button onClick={this.axiosPost}>Solo</button>
-        <button onClick={this.axiosPost}>Group</button>
+        <button onClick={this.axiosSoloPost}>Solo</button>
+        <button >GOGO GROUP VIEW</button>
       </div>
     );
   }
@@ -81,7 +109,7 @@ const mapStateToProps = function mapStateToProps(state) {
   return {
     user: state.user,
     friends: state.user.friends,
-    preferences: state.preferences,
+    preferences: state.user.preferences,
     location: state.location,
   };
 };

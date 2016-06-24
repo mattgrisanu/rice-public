@@ -1,10 +1,16 @@
 module.exports = {
   actions: {
-    'changeLocation': function (city) {
+    changeLocation(city) {
       return {
         type: 'CHANGE_LOCATION',
-        city
-      }
-    }
-  }
+        city,
+      };
+    },
+    addRecs(recObj) {
+      return {
+        type: 'ADD_RECS',
+        recs: recObj.items,
+      };
+    },
+  },
 };
