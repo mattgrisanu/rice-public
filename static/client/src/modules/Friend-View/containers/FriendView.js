@@ -56,7 +56,7 @@ class FriendView extends Component {
 
     instance.post('/users/friends', {
         // user_id: 'this.props.user.clientId',
-        user_id: 'testData.clientID',
+        user_id: 'Matt',
         // friends: [this.props.friends (friends_id1, friends_id2)],
         friends: this.props.friends
       })
