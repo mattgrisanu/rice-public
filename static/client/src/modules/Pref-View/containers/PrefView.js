@@ -41,7 +41,7 @@ class PrefView extends Component {
     instance.post('/users/users', {
         user_id: 'Matt',
         name: 'Matt',
-        email: 'Matt',
+        email: 'Matt@matt.com',
         preferences: this.props.pickedPrefs
       })
       .then(function (response) {
