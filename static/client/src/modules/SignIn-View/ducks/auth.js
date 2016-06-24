@@ -66,9 +66,6 @@ export function login() {
 
   return dispatch => {
     lock.show(params, (err, profile, token) => {
-      // debugger;
-      console.log(profile);
-
       if(err) {
         dispatch(lockError(err))
         return
