@@ -68,24 +68,29 @@ let RestaurantView = React.createClass({
     const mock = new MockAdapter(axios);
 
     // mock for '/api/business/info?name=RESTAURANT.NAME'
-    mock.onGet(/\/api\/business\/info\?name\=.*/g).reply(200,
-      {
-        id: 1,
-        business_id: 'tadu-ethiopian-kitchen-san-francisco-3',
-        name: 'Tadu Ethopian Kitchen',
-        address: '484 Ellis St',
-        phone: '41577711111',
-        city: 'San Francisco',
-        state: 'CA',
-        latitude: '37.7847934',
-        longitude: '-122.4141884',
-        rating: 5,
-        review_count: 317,
-        is_closed: '0',
-        created_at: '2016-06-23T03:18:06.000Z',
-        updated_at: '2016-06-23T03:18:06.000Z',
-      }
-    );
+    mock.onGet(/\/api\/business\/info\?name\=.*/g).reply(function (config) {
+      console.log('MOCK', config);
+
+      return [
+        200,
+        {
+          id: 1,
+          business_id: 'tadu-ethiopian-kitchen-san-francisco-3',
+          name: config.url.split('=')[1],
+          address: '484 Ellis St',
+          phone: '41577711111',
+          city: 'San Francisco',
+          state: 'CA',
+          latitude: '37.7847934',
+          longitude: '-122.4141884',
+          rating: 5,
+          review_count: 317,
+          is_closed: '0',
+          created_at: '2016-06-23T03:18:06.000Z',
+          updated_at: '2016-06-23T03:18:06.000Z',
+        },
+      ];
+    });
 
     // retrieve restaurant data
     console.log('GET', '/api/business/info?name=' + recommendation.name);
