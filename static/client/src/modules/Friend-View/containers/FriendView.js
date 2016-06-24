@@ -5,23 +5,23 @@ import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
 import FriendEntry from './../components/FriendEntry';
 import axios from 'axios';
-import SearchInput, {createFilter} from 'react-search-input'
+import SearchInput, { createFilter } from 'react-search-input';
 
-const KEYS_TO_FILTERS = ['name', 'email']
+const KEYS_TO_FILTERS = ['name', 'email'];
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3001/api'
+  baseURL: 'http://localhost:3001/api',
 });
 
 class FriendView extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      allUsers: [{clientId: 'user1ID', name: 'user1', email: 'lala1@gmail.com'}, {clientId: 'user2ID', name: 'user2', email: 'lala2@gmail.com'}, {clientId: 'user3ID', name: 'user3', email: 'lala3@gmail.com'}, {clientId: 'user4ID', name: 'user4', email: 'lala4@gmail.com'}],
+      allUsers: [{ clientId: 'user1ID', name: 'user1', email: 'lala1@gmail.com'}, {clientId: 'user2ID', name: 'user2', email: 'lala2@gmail.com'}, {clientId: 'user3ID', name: 'user3', email: 'lala3@gmail.com'}, {clientId: 'user4ID', name: 'user4', email: 'lala4@gmail.com'}],
       searchTerm: ''
     }
-    this.addFriend = this.addFriend.bind(this)
+    this.addFriend = this.addFriend.bind(this);
   }
 
   componentDidMount() {
