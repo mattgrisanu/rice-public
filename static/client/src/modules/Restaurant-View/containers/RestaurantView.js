@@ -59,7 +59,7 @@ let RestaurantView = React.createClass({
     console.log('[RestaurantView] retrieveRestaurant');
 
     // did we receive a restaurant?
-    console.log('restaurant', recommendation);
+    console.log('recommendation', recommendation);
     if (!recommendation) {
       return;
     }
@@ -100,7 +100,7 @@ let RestaurantView = React.createClass({
   render() {
     let view;
 
-    if (typeof this.props.restaurant.latitude !== undefined) {
+    if (this.props.restaurant.latitude) {
       view = (
         <div className="RestaurantView">
           <RestaurantViewEntry {...this.props} />
