@@ -74,6 +74,7 @@ export function login() {
       localStorage.setItem('profile', JSON.stringify(profile))
       localStorage.setItem('id_token', token)
       dispatch(lockSuccess(profile, token))
+      // do browserHistory here (remember to import browserHistory from react-router at the top)
     })
   }
 }
