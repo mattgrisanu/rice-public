@@ -11,16 +11,6 @@ import GroupView from 'modules/Group-View/containers/GroupView';
 import authenticatedComponent from 'containers/Auth';
 import checkBoarded from 'containers/Boarding';
 
-// module.exports = () => (
-//   <Router history={ browserHistory }>
-//     <Route path="/" component={Landing}>
-//       <Route path="onboarding/preferences" component={PrefView} />
-//       <Route path="home" component={HomeView} />
-//       <Route path="onboarding/addfriends" component={FriendView} />
-//     </Route>
-//   </Router>
-// );
-// <IndexRoute component={SignIn} />
 export default () => {
   return (
     <Route component={CoreLayout}>
