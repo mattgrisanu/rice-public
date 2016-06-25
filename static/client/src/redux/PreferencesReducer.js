@@ -1,12 +1,12 @@
-var intialstate =  { 
+const intialstate = {
   preferences: {
     all: [
       'American', 'Chinese', 'Indian', 'Italian', 'Mexican', 'Korean', 'Japanese', 'Thai', 'Vietnamese', 'Breakfast', 'Pizza', 'Food Court', 'Cafe', 'Vegetarian'
-    ]
+    ],
   }
 }
 
-var preferences = (state = intialstate.preferences, action) => {
+const preferences = (state = intialstate.preferences, action) => {
     switch (action.type) {
       case 'SPEAK':
         console.log('Speaking...', action.txt);
@@ -15,6 +15,6 @@ var preferences = (state = intialstate.preferences, action) => {
       default:
         return state;
     }
-  }
+};
 
 export default preferences;

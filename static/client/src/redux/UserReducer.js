@@ -22,7 +22,9 @@ var user = (state = intialstate.user, action) => {
           friendArr.push(action.friend_id)
         }
         return { ...state, friends: friendArr }
-        
+      
+      case 'IMPORT_FRIENDS':
+      return { ...state, friends: action.friendsArr}
       default:
         return state;
     }

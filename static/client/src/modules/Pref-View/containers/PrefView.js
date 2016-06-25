@@ -36,12 +36,11 @@ class PrefView extends Component {
     const instance = axios.create({
       baseURL: 'http://localhost:3001/api'
     });
-    console.log(instance.post);
 
     instance.post('/users/users', {
-        user_id: 'Matt',
-        name: 'Matt',
-        email: 'Matt@matt.com',
+        user_id: 'katkat',
+        name: 'katkat',
+        email: 'katkat@katkat.com',
         preferences: this.props.pickedPrefs
       })
       .then(function (response) {
@@ -52,7 +51,7 @@ class PrefView extends Component {
         console.log('DB error', error);
         // handle db error
       });
-        // browserHistory.push('/onboarding/addfriends');
+        browserHistory.push('/onboarding/addfriends');
     
 
   }

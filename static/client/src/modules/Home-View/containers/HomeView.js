@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from './../ducks/home-view-ducks.js';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 
@@ -94,7 +94,7 @@ class HomeView extends Component {
       <div className="container HomeView-container">
         <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
         <button onClick={this.axiosSoloPost}>Solo</button>
-        <button >GOGO GROUP VIEW</button>
+        <button><Link to="/group">Make Group</Link></button>
       </div>
     );
   }

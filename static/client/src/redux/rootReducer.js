@@ -4,6 +4,7 @@ import restaurant from './RestaurantReducer';
 import preferences from './PreferencesReducer';
 import location from './LocationReducer';
 import recommendation from './RecReducer';
+import group from './GroupReducer';
 import * as authReducers from '../modules/SignIn-View/ducks';
 import _ from 'lodash';
 import { routerReducer } from 'react-router-redux';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   preferences,
   location,
   recommendation,
+  group,
   form: formReducer,
   routing: routerReducer
 });
