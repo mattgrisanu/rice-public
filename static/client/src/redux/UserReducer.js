@@ -1,6 +1,7 @@
 var intialstate =  {
   user: {
       user_id: '',
+      boarded: false,
       friends: [],
       preferences: [],
       isOnboarded: false
