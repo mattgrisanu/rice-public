@@ -1,18 +1,34 @@
-var intialstate =  { 
+const intialstate = {
   restaurant: {
-    restaurant_id: ''
-  }
-}
+    restaurant_id: '',
+  },
+};
 
-var restaurant = (state = intialstate.restaurant, action) => {
-    switch (action.type) {
-      case 'SPEAK':
-        console.log('Speaking...', action.txt);
+const restaurant = (state = intialstate.restaurant, action) => {
+  switch (action.type) {
+    case 'SPEAK':
+      console.log('Speaking...', action.txt);
 
-        return action.txt;
-      default:
-        return state;
-    }
+      return action.txt;
+
+    case 'RESTAURANT_UPDATE':
+      console.log('reducer RESTAURANT_UPDATE', action);
+      return action.restaurant;
+
+    case 'RESTAURANT_ACCEPT':
+      console.log('reducer RESTAURANT_ACCEPT', action);
+      return {
+        ...state,
+        toRate: true
+      };
+
+    case 'RESTAURANT_DECLINE':
+      console.log('reducer RESTAURANT_DECLINE', action);
+      return state;
+
+    default:
+      return state;
   }
+};
 
 export default restaurant;

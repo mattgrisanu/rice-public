@@ -61,12 +61,12 @@ To see privileges on the account you've just created:
     ```
 2. Your server is now live at ```http://localhost:PORT```
 
-### Seeding database
+### Seeding database (This is not necessary for the service to be working)
 
-1. In the `development.env` file specific the path to the directory where the CSV data files are.
-2. Change the file names on line 9 and 10 in `seed.js` to match the CSV data file names.
-3. Run `seed.js` with the following command from `server/`:
+1. In `development.env` enter the path to the directory where CSV data files live, in `DATA_PATH`.
+2. Change filenames on line 9 and 10 in `seed.js` to correspond to CSV data filenames.
+3. Run `seed.js` with the following command from the root directory:
 
 	```
-	$ node seed.js
+	$ node server/seed.js
 	```
