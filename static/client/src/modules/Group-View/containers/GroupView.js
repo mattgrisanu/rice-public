@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from './../ducks/group-view-ducks.js';
 import { bindActionCreators } from 'redux';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 import SearchInput, { createFilter } from 'react-search-input';
 

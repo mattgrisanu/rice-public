@@ -21,7 +21,7 @@ export default (Component) => {
       const {auth, location} = props;
       if (!auth) {
         this.props.dispatch(replace({
-          pathname: '/login',
+          pathname: '/signin',
           query: {redirect: location.pathname}
         }));
       }

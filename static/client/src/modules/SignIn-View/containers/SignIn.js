@@ -4,7 +4,7 @@ import { login, getUser, logoutUser } from '../ducks/auth';
 
 class SignIn extends Component {
 	render() {
-		const { user: { isFetching, isAuthenticated }, loginStart } = this.props;
+		const { user: { isFetching, isAuthenticated }, loginStart, logoutUser } = this.props;
 		return (
 			<div className="center-block w-xxl w-auto-xs p-y-md">
 			  <div className="navbar">
@@ -16,6 +16,10 @@ class SignIn extends Component {
 			    <div>
 			      <button onClick={loginStart}>
 			      	Login
+			      </button>
+
+			      <button onClick={logoutUser}>
+			      	Logout
 			      </button>
 			    </div>
 			  </div>
@@ -31,7 +35,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	loginStart() {
 		dispatch(login());
-	}
+	},
+	logoutUser() {
+		dispatch(logoutUser());
+	},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
