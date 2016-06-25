@@ -10,8 +10,9 @@ class Navbar extends Component {
           <Link className="navbar-brand" to="/">Rice</Link>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              <li><Link to="/onboarding/preferences">Onboarding</Link></li>
-              <li><Link to="/restaurant/1">Restaurant</Link></li>
+              <li><Link to="onboarding/preferences">Onboarding</Link></li>
+              <li><Link to="/home">Home</Link></li>
+              <li><Link to="/restaurant">Restaurant</Link></li>
             </ul>
           </div>
         </div>

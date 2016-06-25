@@ -14,13 +14,17 @@ var user = (state = intialstate.user, action) => {
         if(prefArr.indexOf(action.pref_id) === -1) {
           prefArr.push(action.pref_id)
         }
-        return {...state, preferences: prefArr }
+        return { ...state, preferences: prefArr }
+
       case 'ADD_FRIEND':
         var friendArr = state.friends.slice();
         if(friendArr.indexOf(action.friend_id) === -1) {
           friendArr.push(action.friend_id)
         }
-        return {...state, friends: friendArr }
+        return { ...state, friends: friendArr }
+      
+      case 'IMPORT_FRIENDS':
+      return { ...state, friends: action.friendsArr}
       default:
         return state;
     }
