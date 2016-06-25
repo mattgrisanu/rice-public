@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export default function request(endpoint, method, params) {
 	const userToken = localStorage.getItem('id_token');
+  const clientId = JSON.parse(localStorage.getItem('profile')).clientID;
 
 	const headers = {
 		'Content-Type': 'application/json',
@@ -10,6 +11,8 @@ export default function request(endpoint, method, params) {
 	if (userToken) {
 		headers.Authorization = 'Bearer ' + userToken;
 	}
+
+	params.clientId = clientId;
 
 	return axios({
 		url: endpoint,
