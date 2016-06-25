@@ -3,17 +3,14 @@ import { connect } from 'react-redux';
 import { actions } from './../ducks/group-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
-import axios from 'axios';
 import SearchInput, { createFilter } from 'react-search-input';
+import axios2 from './../../../utils/api';
 
 const KEYS_TO_FILTERS = ['name', 'email'];
+const businessURL = 'http://localhost:3002/api';
+const userURL = 'http://localhost:3001/api';
+const recURL = 'http://localhost:5000/api';
 
-const BusinessInstance = axios.create({
-  baseURL: 'http://localhost:3002/api',
-});
-const RecInstance = axios.create({
-  baseURL: 'http://localhost:3003/api',
-});
 class GroupView extends Component {
 
   constructor(props) {
@@ -25,27 +22,26 @@ class GroupView extends Component {
   }
 
   componentDidMount() {
-    const { user, friends, group } = this.props;
+    const { user, friends, group, location } = this.props;
     this.getFriendsInfo();
     this.addToGroup(this.props.user.user_id);
   }
 
   getFriendsInfo() {
     // var user = this.props.user.usder_id
-    instance.get('/users/users', {
-      user_id: 'LiptonTea',
+    axios2(userURL, '/users/users', 'get', {
+      user_id: this.props.user.user_id,
     })
       .then(function (response) {
         console.log('db response for GET users', response);
         //action to update redux store user.friends
         console.log(response.data)
-        this.props.actions.importFriends(response.data)
+        this.props.actions.importFriends(response.data);
       }.bind(this))
       .catch(function (error) {
         console.log(error);
         // handle user db error
       });
-
   }
 
   addToGroup(clientId) {
@@ -59,7 +55,7 @@ class GroupView extends Component {
     const groupPref = self.props.group.preferences;
     const userLocation = self.props.location;
 
-    instance.get('/users/group/preferences', {
+    axios2(userURL, '/users/group/preferences', 'post', {
       group,
     })
       .then(function (response) {
@@ -67,39 +63,41 @@ class GroupView extends Component {
         //save response preferences back to action group preferences
         self.props.actions.importGroupPref(response.data);
         //send group preferences to axiospostRec
-        RecInstance.post('/recommendation/getRec', {
+        axios2(recURL, '/recommendation/getRec', 'post', {
           user_ids: group,
           preferences: {
             categories: groupPref,
+            attributes: [],
           },
           location: userLocation,
         })
-        .then(function (response) {
-          console.log('db response for POST recommendation', response);
-          self.props.actions.addRecs(response);
-          //yelp api call
-          BusinessInstance.post('/business/yelp', response)
+        .then(function (recData) {
+          console.log('db recData for POST recommendation', recData);
+          self.props.actions.addRecs(recData);
+          axios2(businessURL, '/business/yelp', 'post', recData)
             .then(function (successAdd) {
-              console.log('back from saving yelp data pushing user to /restaurant')
+              console.log('back from saving yelp data pushing user to /restaurant', successAdd);
               browserHistory.push('/restaurant');
-          })
+            })
           .catch(function (error) {
             console.log(error);
           });
-      })
+        })
       .catch(function (error) {
         console.log(error);
         // need to handle friend db error
       });
-    })
+      });
   }
 
   searchUpdated(term) {
-    this.setState({searchTerm: term})
+    this.setState({
+      searchTerm: term,
+    });
   }
 
 
-  render () {
+  render() {
     const filteredFriends = this.props.friends.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     const self = this;
 
@@ -126,7 +124,8 @@ const mapStateToProps = function (state) {
   return {
     user: state.user,
     friends: state.user.friends,
-    group: state.group
+    group: state.group,
+    location: state.location,
   };
 };
 

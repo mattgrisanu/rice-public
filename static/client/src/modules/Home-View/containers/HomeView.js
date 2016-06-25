@@ -3,19 +3,15 @@ import { connect } from 'react-redux';
 import { actions } from './../ducks/home-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
-import axios from 'axios';
+// import axios from 'axios';
 import Dropdown from 'react-dropdown';
-
+import axios2 from './../../../utils/api';
 const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
+const businessURL = 'http://localhost:3002/api';
+const recURL = 'http://localhost:5000/api';
 
-const RecInstance = axios.create({
-  baseURL: 'http://localhost:3003/api',
-});
-const BusinessInstance = axios.create({
-  baseURL: 'http://localhost:3002/api',
-});
 
 class HomeView extends Component {
 
@@ -41,52 +37,31 @@ class HomeView extends Component {
   }
 
   axiosSoloPost() {
+    //ADD addtributes that people are looking for
     const users = [this.props.user.user_id].concat(this.props.friends);
     const userPreferences = this.props.preferences;
     const userLocation = this.props.location;
-    // RecInstance.post('/recommendation/getRec', {
-    //   user_ids: users,
-    //   preferences: {
-    //     categories: userPreferences,
-    //   },
-    //   location: userLocation,
-    // })
-    // .then(function (response) {
-    //   console.log('db response for POST recommendation', response);
-    //   this.props.actions.addRecs(response);
-    //   //yelp api call
-    //   BusinessInstance.post('/business/yelp', response)
-    //     .then(function (successAdd) {
-    //       console.log('back from saving yelp data pushing user to /restaurant')
-    //       browserHistory.push('/restaurant');
-    //     });
-    // }.bind(this))
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-    var response =  {
-    items: [{
-      cuisine: "cafes",
-      id: "unlessstring",
-      name: "The Beat Coffeehouse & Records",
-      rating: 0.20202,
-      userRated: false
-    },
-    {
-      cuisine: "french",
-      id: "unlessstring",
-      name: "Sunrise Coffee",
-      rating: 0.20202,
-      userRated: false
-    }]
-  }
-    this.props.actions.addRecs(response);
-    //yelp api call
-    BusinessInstance.post('/business/yelp', response)
-      .then(function (successAdd) {
-        console.log('back from saving yelp data pushing user to /restaurant')
-        browserHistory.push('/restaurant');
-      });
+    axios2(recURL, '/restaurants', post, {
+      user_ids: users,
+      preferences: {
+        categories: userPreferences,
+        attributes: [],
+      },
+      location: userLocation,
+    })
+    .then(function (response) {
+      console.log('db response for POST recommendation', response);
+      this.props.actions.addRecs(response);
+      //yelp api call
+      axios2(businessURL, '/business/yelp', 'post', response)
+        .then(function (successAdd) {
+          console.log('back from saving yelp data pushing user to /restaurant', successAdd);
+          browserHistory.push('/restaurant');
+        });
+    }.bind(this))
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
