@@ -38,7 +38,11 @@ module.exports = {
                 test: /node_modules[\\\/]auth0-lock[\\\/].*\.ejs$/,
                 loader: 'transform-loader/cacheable?ejsify'
             },
-            { test: /\.json$/, loader: 'json'}
+            { test: /\.json$/, loader: 'json'},
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass']
+            }
         ]
     },
     resolve: {
