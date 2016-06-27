@@ -26,5 +26,4 @@ export default () => {
         <Route path="rating" component={ authenticatedComponent(RatingView) } />
       </Route>
     </Route>
-  );
-};
+)};
