@@ -44,18 +44,14 @@ const RestaurantViewEntry = React.createClass({
             <div className="row RestaurantViewEntry-GoogleMap">
               <div className="col-md-12" style={this.props.styles}>
                 <GoogleMap
-                  center={[this.props.restaurant.latitude, this.props.restaurant.longitude]}
+                  center={[Number(this.props.restaurant.latitude), Number(this.props.restaurant.longitude)]}
                   defaultZoom={this.props.map.initialZoom}
                 >
                   <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
                     <FontAwesome name="map-marker" size="2x" />
-                    Place Name
+                    {this.props.restaurant.name}
                   </div>
 
-                  <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
-                    <FontAwesome name="dot-circle-o" size="2x" />
-                    Current Location
-                  </div>
                 </GoogleMap>
               </div>
 
