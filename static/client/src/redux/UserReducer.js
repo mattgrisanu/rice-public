@@ -1,4 +1,4 @@
-var intialstate =  { 
+var intialstate =  {
   user: {
       user_id: '',
       friends: [],
@@ -22,11 +22,18 @@ var user = (state = intialstate.user, action) => {
           friendArr.push(action.friend_id)
         }
         return { ...state, friends: friendArr }
-      
+
       case 'IMPORT_FRIENDS':
-      return { ...state, friends: action.friendsArr}
+        return { ...state, friends: action.friendsArr}
+
+      case 'LOCK_SUCCESS':
+        return {
+          ...state,
+          isOnboarded: action.profile.isOnboarded
+        }
+
       default:
-        return state;
+          return state;
     }
   }
 
