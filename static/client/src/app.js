@@ -7,7 +7,7 @@ import CoreLayout from 'layouts/Core';
 import LandingLayout from 'layouts/Landing';
 import SignIn from 'modules/SignIn-View/containers/SignIn';
 import RestaurantView from 'modules/Restaurant-View/containers/RestaurantView';
-import RatingView from 'modules/Rating-View/containers/RatingView';
+import RatingView from 'modules/Ratings-View/containers/RatingView';
 import GroupView from 'modules/Group-View/containers/GroupView';
 import authenticatedComponent from 'containers/Auth';
 import checkBoarded from 'containers/Boarding';

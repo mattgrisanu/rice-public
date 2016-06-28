@@ -27,6 +27,8 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
+            { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
+            { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
             {
                 test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
                 loaders: [
