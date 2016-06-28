@@ -17,7 +17,7 @@ export default () => {
       <Route path="/" component={LandingLayout}>
         <IndexRoute component={SignIn} />
         <Route path="signin" component={SignIn} />
-        <Route path="home" component={authenticatedComponent(HomeView)} />
+        <Route path="home" component={checkBoarded(authenticatedComponent(HomeView), { withValue: false, redirectTo: '/onboarding/preferences' })} />
         <Route path="group" component={authenticatedComponent(GroupView)} />
         <Route path="onboarding/preferences" component={authenticatedComponent(PrefView)} />
         <Route path="onboarding/addfriends" component={authenticatedComponent(FriendView)} />
