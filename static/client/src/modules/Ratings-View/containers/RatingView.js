@@ -4,7 +4,6 @@ import { actions } from './../ducks/rating-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
 import RatingEntry from './../components/RatingEntry';
-import axios from 'axios';
 
 // import './react-star-rating.min.css';
 

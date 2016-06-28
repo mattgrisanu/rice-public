@@ -27,8 +27,8 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
-            { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
-            { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
+            // { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
+            // { test: /\.css$/, loader: 'style-loader!css-loader?sourceMap', include: path.join(ROOT_PATH, 'styles')},
             {
                 test: /node_modules[\\\/]auth0-lock[\\\/].*\.js$/,
                 loaders: [
@@ -41,6 +41,7 @@ module.exports = {
                 loader: 'transform-loader/cacheable?ejsify'
             },
             { test: /\.json$/, loader: 'json'},
+<<<<<<< HEAD
             {
                 test: /\.scss$/,
                 loaders: ['style', 'css', 'sass']
@@ -50,6 +51,9 @@ module.exports = {
                 loader: "url-loader",
                 query: { mimetype: "image/png" }
             }
+=======
+            {test: /\.scss$/, loaders: ['style', 'css', 'sass']}
+>>>>>>> (feat) Make POST request to BusinessService with review
         ]
     },
     resolve: {
