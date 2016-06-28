@@ -38,9 +38,9 @@ class PrefView extends Component {
     });
 
     instance.post('/users/users', {
-        user_id: 'katkat',
-        name: 'katkat',
-        email: 'katkat@katkat.com',
+        user_id: this.props.user.clientID,
+        name: this.props.user.name,
+        email: this.props.user.email,
         isOnboarded: true,
         preferences: this.props.pickedPrefs
       })
@@ -70,6 +70,7 @@ class PrefView extends Component {
 
 const mapStateToProps = function (state) {
   return {
+    user: state.user,
     pickedPrefs: state.user.preferences,
     preferences: state.preferences
   }

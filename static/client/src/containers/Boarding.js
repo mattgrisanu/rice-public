@@ -26,7 +26,7 @@ export default function checkBoarded(Component, { withValue, redirectTo }) {
     }
 
     _shouldRedirect() {
-      return this.props.user.boarded === withValue;
+      return this.props.user.isOnboarded === withValue;
     }
 
     render() {
