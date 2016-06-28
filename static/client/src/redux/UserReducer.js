@@ -31,6 +31,7 @@ var user = (state = intialstate.user, action) => {
       case 'LOCK_SUCCESS':
         return {
           ...state,
+          clientID: action.profile.clientID,
           isOnboarded: action.profile.isOnboarded
         }
 
