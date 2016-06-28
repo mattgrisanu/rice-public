@@ -35,7 +35,7 @@ var user = (state = intialstate.user, action) => {
           clientID: action.profile.clientID,
           name: action.profile.name,
           email: action.profile.email,
-          isOnboarded: action.profile.isOnboarded
+          isOnboarded: action.profile.isOnboarded || false
         }
 
       default:
