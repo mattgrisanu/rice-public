@@ -32,7 +32,7 @@ class PrefView extends Component {
   handleSubmit() {
     //somewhere we have testData
     console.log('in PREF VIEW handleSubmit', this.props.pickedPrefs)
-    
+
     const instance = axios.create({
       baseURL: 'http://localhost:3001/api'
     });
@@ -41,6 +41,7 @@ class PrefView extends Component {
         user_id: 'katkat',
         name: 'katkat',
         email: 'katkat@katkat.com',
+        isOnboarded: true,
         preferences: this.props.pickedPrefs
       })
       .then(function (response) {
@@ -52,7 +53,7 @@ class PrefView extends Component {
         // handle db error
       });
         browserHistory.push('/onboarding/addfriends');
-    
+
 
   }
 
