@@ -1,37 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { actions } from './../ducks/rating-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
-// import RatingEntry from './../components/RatingEntry';
-// import StarRating from 'react-star-rating';
-import Rater from 'react-rater';
+import RatingEntry from './../components/RatingEntry';
+
+import api from './../../../utils/api';
+
 import './../RatingViewStyles.scss';
-// import './react-star-rating.min.css';
+
+const businessUrl = 'http://localhost:3002/api';
 
 export default class RatingView extends Component {
   constructor(props) {
     super(props);
-  }
-  componentDidMount() {
-    const { business } = this.props;
-    //update state.user.user_id = tesetData.clientId
+
+    this.state = {
+      score: 0
+    };
   }
 
-  handleRate(rating, lastRating) {
-    console.log('clicked rating: ', lastRating);
+  handleRatingClick (rating, lastRating) {
+    console.log('Clicked stars ! rating => ', rating, ', last ratings =>', lastRating);
+    this.setState({ score: lastRating });
   }
+
+  /** POST **/
+  handleSubmit (txt) {
+    api(businessUrl, '/business/review', 'post', {
+      // business_id: business.business_id,
+      rating: this.state.score,
+      review: txt
+    }).then(function (response) {
+      console.log(response);
+    }).catch(function (error) {
+      console.error(error);
+    });
+  }
+
   render() {
     return (
       <div className="RatingView-container">
         <h1>{ this.props.business.name }</h1>
-        <Rater className="react-rater" onRate={this.handleRate.bind(this)} />
-
+        <RatingEntry onRating={ this.handleRatingClick.bind(this) } onSubmit={ this.handleSubmit.bind(this) } />
       </div>
     );
   }
 }
-        // <RatingEntry { ...this.props } />
 
 const mapStateToProps = state => (
   {
