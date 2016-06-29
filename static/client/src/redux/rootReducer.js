@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import user from './UserReducer';
 import restaurant from './RestaurantReducer';
-import rating from './RatingReducer';
 import preferences from './PreferencesReducer';
 import location from './LocationReducer';
 import recommendation from './RecReducer';

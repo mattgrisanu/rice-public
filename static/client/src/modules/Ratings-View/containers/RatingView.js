@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
+
+import * as actions from './../ducks/rating-view-ducks';
 import RatingEntry from './../components/RatingEntry';
 
 import api from './../../../utils/api';
@@ -42,6 +44,9 @@ export default class RatingView extends Component {
       review: txt
     }).then(function (response) {
       console.log(response);
+      //call action to change toRate to false in store
+      this.props.actions.hasRated();
+      browserHistory.push('/home');
     }).catch(function (error) {
       console.error(error);
     });
@@ -65,7 +70,7 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => (
-  { actions: bindActionCreators({}, dispatch) }
+  { actions: bindActionCreators(actions, dispatch) }
 );
 
 RatingView = connect(mapStateToProps, mapDispatchToProps)(RatingView);

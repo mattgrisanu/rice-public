@@ -1,5 +1,5 @@
-module.exports = {
-  actions: {
-
-  }
+export function hasRated () {
+  return {
+    type: 'TOGGLE_RATE_FLAG'
+  };
 };
