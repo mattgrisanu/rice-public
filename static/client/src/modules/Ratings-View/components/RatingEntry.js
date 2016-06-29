@@ -11,6 +11,10 @@ export default class RatingEntry extends Component {
     super(props)
   }
 
+  componentDidMount() {
+    this.handleSubmit();
+  }
+
   handleRatingClick () {
     console.log('Clicked stars !');
   }
@@ -20,19 +24,27 @@ export default class RatingEntry extends Component {
   */
   handleSubmit () { // pass down to entry and access local state in ratingEntry
     // review < 255 char
-    // rating  => integers and between 0 and 5, inclusive
+    // rating: integers and between 0 and 5, inclusive
 
     api(businessUrl, '/business/review', 'post', {
       business_id: 'Tea',
       rating: 5,
       review: 'asdfhgndbrt'
     }).then(function (response) {
-
+      console.log(response);
     }).catch(function (error) {
       console.error(error);
     });
   }
 
+  /**
+  * onHover => highlight
+  * onclick => send to state, stop highlight, fix color
+  *
+  *
+  *
+  *
+  */  
   render () {
     return (
       <form target="_self" method="post">
