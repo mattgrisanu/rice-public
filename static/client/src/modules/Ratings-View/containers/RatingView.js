@@ -6,7 +6,7 @@ import RatingEntry from './../components/RatingEntry';
 
 import api from './../../../utils/api';
 
-import './../RatingViewStyles.scss';
+// import './../RatingViewStyles.scss';
 
 const businessUrl = 'http://localhost:3002/api';
 
@@ -20,14 +20,24 @@ export default class RatingView extends Component {
   }
 
   handleRatingClick (rating, lastRating) {
-    console.log('Clicked stars ! rating => ', rating, ', last ratings =>', lastRating);
-    this.setState({ score: lastRating });
+    // console.log('Clicked stars ! rating => ', rating, ', last ratings =>', lastRating);
+    if (lastRating !== undefined) {
+      this.setState({ score: lastRating });
+    }
   }
 
   /** POST **/
   handleSubmit (txt) {
+    console.log('AJAX input =>', this.state ,{
+      clientId: this.props.user.user_id,
+      business_id: this.props.business.business_id,
+      rating: this.state.score,
+      review: txt
+    });
+    
     api(businessUrl, '/business/review', 'post', {
-      // business_id: business.business_id,
+      clientId: this.props.user.user_id,
+      business_id: this.props.business.business_id,
       rating: this.state.score,
       review: txt
     }).then(function (response) {
@@ -49,7 +59,8 @@ export default class RatingView extends Component {
 
 const mapStateToProps = state => (
   {
-    business: state.restaurant,
+    user: state.user, 
+    business: state.restaurant
   }
 );
 

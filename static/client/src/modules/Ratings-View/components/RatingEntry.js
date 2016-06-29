@@ -15,7 +15,7 @@ export default class RatingEntry extends Component {
 
   handleReviewSubmit () {
     this.setState({
-      review: document.getElementByClassName('review').value
+      review: document.getElementsByClassName('review')[0].value
     }, function () { // make ajax
       this.props.onSubmit(this.state.review);
     });
