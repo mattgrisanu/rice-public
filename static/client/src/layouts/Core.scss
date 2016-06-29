@@ -1,0 +1,26 @@
+/* Core Styles             */
+/* ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Variables */
+$brand-black: rgb(41, 37, 44);
+$brand-white: rgb(255, 255, 255);
+$brand-dark: rgb(51, 49, 70);
+$brand-medium: rgb(54, 72, 94);
+$brand-highlight: rgb(214, 233, 236);
+
+$border-radius: 4px;
+
+/* Top Level Styles */
+body {
+  background: $brand-highlight;
+}
+
+/* Core Styles */
+.Core {
+  margin: 10px 0;
+  padding: 20px;
+  background: $brand-white;
+
+  border-radius: $border-radius;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}

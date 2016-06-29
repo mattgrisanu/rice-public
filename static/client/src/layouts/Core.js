@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import './Core.scss';
 
 function CoreLayout({ children }) {
   return (
@@ -7,9 +8,19 @@ function CoreLayout({ children }) {
       <Navbar/>
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+            <h1>Rice</h1>
+          </div>
+          <div className="col-md-3"></div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6 Core">
             {children}
           </div>
+          <div className="col-md-3"></div>
         </div>
       </div>
     </div>

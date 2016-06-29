@@ -38,44 +38,38 @@ const RestaurantViewEntry = React.createClass({
     return (
       <div>
         <h1>RestaurantViewEntry</h1>
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-6">
-            <div className="row RestaurantViewEntry-GoogleMap">
-              <div className="col-md-12" style={this.props.styles}>
-                <GoogleMap
-                  center={[Number(this.props.restaurant.latitude), Number(this.props.restaurant.longitude)]}
-                  defaultZoom={this.props.map.initialZoom}
-                >
-                  <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
-                    <FontAwesome name="map-marker" size="2x" />
-                    {this.props.restaurant.name}
-                  </div>
-
-                </GoogleMap>
+        <div className="row RestaurantViewEntry-GoogleMap">
+          <div className="col-md-12" style={this.props.styles}>
+            <GoogleMap
+              center={[Number(this.props.restaurant.latitude), Number(this.props.restaurant.longitude)]}
+              defaultZoom={this.props.map.initialZoom}
+            >
+              <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
+                <FontAwesome name="map-marker" size="2x" />
+                {this.props.restaurant.name}
               </div>
 
-              <div className="row RestaurantViewEntry-RestaurantInfo">
-                <div className="col-md-12">
-                  <h2>{this.props.restaurant.name}</h2>
-                  <p>
-                    {this.props.restaurant.address}<br/>
-                    {this.props.restaurant.city}, {this.props.restaurant.state}<br/>
-                  </p>
-                </div>
-              </div>
+            </GoogleMap>
+          </div>
 
-              <div className="row RestaurantViewEntry-Buttons">
-                <div className="col-md-6">
-                  <button type="button" onClick={this.props.actions.restaurantAccept.bind(null, 1)}>Accept</button>
-                </div>
-                <div className="col-md-6">
-                  <button type="button" onClick={this.props.actions.restaurantDecline.bind(null, 1)}>Decline</button>
-                </div>
-              </div>
+          <div className="row RestaurantViewEntry-RestaurantInfo">
+            <div className="col-md-12">
+              <h2>{this.props.restaurant.name}</h2>
+              <p>
+                {this.props.restaurant.address}<br/>
+                {this.props.restaurant.city}, {this.props.restaurant.state}<br/>
+              </p>
             </div>
           </div>
-          <div className="col-md-3"></div>
+
+          <div className="row RestaurantViewEntry-Buttons">
+            <div className="col-md-6">
+              <button type="button" onClick={this.props.actions.restaurantAccept.bind(null, 1)}>Accept</button>
+            </div>
+            <div className="col-md-6">
+              <button type="button" onClick={this.props.actions.restaurantDecline.bind(null, 1)}>Decline</button>
+            </div>
+          </div>
         </div>
       </div>
     );
