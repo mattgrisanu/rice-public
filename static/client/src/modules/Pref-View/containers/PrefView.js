@@ -35,40 +35,31 @@ class PrefView extends Component {
   }
 
   handleSubmit() {
-    //somewhere we have testData
     console.log('in PREF VIEW handleSubmit', this.props.pickedPrefs)
 
-    // const instance = axios.create({
-    //   baseURL: 'http://localhost:3001/api'
+    api(userURL, '/users/users', 'GET', {})
+    .then(function(response) {
+      console.log(response);
+    });
+
+    // api(userURL, '/users/user/update', 'post', {
+    //   name: this.props.user.name,
+    //   email: this.props.user.email,
+    //   isOnboarded: true,
+    //   preferences: this.props.pickedPrefs,
+    // })
+    // .then(function (response) {
+    //   console.log('db response from Pref View', response);
+    //   browserHistory.push('/onboarding/addfriends');
+    // })
+    // .catch(function (error) {
+    //   console.log('DB error', error);
+    //   // handle db error
     // });
-
-    api(userURL, '/users/users', 'post', {
-      name: this.props.user.name,
-      email: this.props.user.email,
-      isOnboarded: true,
-      preferences: this.props.pickedPrefs,
-    })
-    // instance.post('/users/user/update', {
-    //     user_id: this.props.user.clientID,
-    //     name: this.props.user.name,
-    //     email: this.props.user.email,
-    //     isOnboarded: true,
-    //     preferences: this.props.pickedPrefs
-    //   })
-      .then(function (response) {
-        console.log('db response from Pref View', response);
-        browserHistory.push('/onboarding/addfriends');
-      })
-      .catch(function (error) {
-        console.log('DB error', error);
-        // handle db error
-      });
-        // browserHistory.push('/onboarding/addfriends');
-
-
+    // browserHistory.push('/onboarding/addfriends');
   }
 
-  render () {
+  render() {
     return (
       <div className='PrefView-container'>
         {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
