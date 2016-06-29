@@ -68,7 +68,7 @@ class HomeView extends Component {
     return (
       <div className="container HomeView-container">
         <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
-        <button onClick={this.axiosSoloPost}>Solo</button>
+        <button onClick={this.axiosSoloPost.bind(null)}>Solo</button>
         <button><Link to="/group">Make Group</Link></button>
       </div>
     );

@@ -1,6 +1,6 @@
 var intialstate =  {
   user: {
-      user_id: '',
+      clientId: '',
       friends: [],
       preferences: [],
       isOnboarded: false
@@ -28,10 +28,20 @@ var user = (state = intialstate.user, action) => {
         return { ...state, friends: action.friendsArr}
 
       case 'LOCK_SUCCESS':
+        console.log('LOCK_SUCCESS', action.profile);
+
         return {
           ...state,
-          clientID: action.profile.clientID,
-          isOnboarded: action.profile.isOnboarded
+          clientId: action.profile.clientId,
+          name: action.profile.name,
+          email: action.profile.email,
+          isOnboarded: action.profile.isOnboarded || false
+        }
+
+      case 'USER_ISONBOARDED':
+        return {
+          ...state,
+          isOnboarded: true
         }
 
       default:

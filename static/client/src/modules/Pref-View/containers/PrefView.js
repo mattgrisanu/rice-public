@@ -2,63 +2,47 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actions } from './../ducks/pref-view-ducks.js';
 import { bindActionCreators } from 'redux';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import PrefEntry from './../components/PrefEntry';
-import axios from 'axios';
+import api from '../../../utils/api';
 
-/*testData from Auth0
-{ email: '',
-  name: '', given_name: '', family_name: '',
-  picture: '',
-  clientId: ''
-}
-*/
+const userURL = 'http://localhost:3001/api';
+
 class PrefView extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
-    const { preferences, pickedPrefs } = this.props;
-    //update state.user.user_id = tesetData.clientId
+    // this.props.actions.isOnboarded = this.props.actions.isOnboarded.bind(this);
   }
 
-  addPref(pref_id) {
-    console.log("INSIDE addpref", pref_id)
-    this.actions.checkPref(pref_id)
+  addPref(prefId) {
+    console.log('[PrefView] addPref', prefId);
+    this.actions.checkPref(prefId);
   }
 
   handleSubmit() {
-    //somewhere we have testData
-    console.log('in PREF VIEW handleSubmit', this.props.pickedPrefs)
-    
-    const instance = axios.create({
-      baseURL: 'http://localhost:3001/api'
+    api(userURL, '/users/user/update', 'post', {
+      name: this.props.user.name,
+      email: this.props.user.email,
+      isOnboarded: true,
+      preferences: this.props.pickedPrefs,
+    })
+    .then(function (response) {
+      console.log('[PrefView] response', response);
+      this.props.actions.isOnboarded();
+      browserHistory.push('/onboarding/addfriends');
+    }.bind(this))
+    .catch(function (error) {
+      console.log('[PrefView] error', error);
     });
-
-    instance.post('/users/users', {
-        user_id: 'katkat',
-        name: 'katkat',
-        email: 'katkat@katkat.com',
-        preferences: this.props.pickedPrefs
-      })
-      .then(function (response) {
-        console.log('db response from Pref View', response);
-        browserHistory.push('/onboarding/addfriends');
-      })
-      .catch(function (error) {
-        console.log('DB error', error);
-        // handle db error
-      });
-        browserHistory.push('/onboarding/addfriends');
-    
-
   }
 
-  render () {
+  render() {
     return (
-      <div className='PrefView-container'>
+      <div className="PrefView-container">
         {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
@@ -66,17 +50,17 @@ class PrefView extends Component {
   }
 }
 
-
 const mapStateToProps = function (state) {
   return {
+    user: state.user,
     pickedPrefs: state.user.preferences,
-    preferences: state.preferences
-  }
-}
+    preferences: state.preferences,
+  };
+};
 
 const mapDispatchToProps = function (dispatch) {
   return { actions: bindActionCreators(actions, dispatch) };
-}
+};
 
 PrefView = connect(mapStateToProps, mapDispatchToProps)(PrefView);
 export default PrefView;
