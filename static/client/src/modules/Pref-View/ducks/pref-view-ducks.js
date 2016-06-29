@@ -1,11 +1,16 @@
 module.exports = {
   actions: {
-    'checkPref': function (pref_id) {
+    checkPref: function (pref_id) {
       return {
         type: 'ITEM_CHECKED',
         pref_id: pref_id
       };
-    }
+    },
+    isOnboarded: function() {
+      return {
+        type: 'USER_ISONBOARDED'
+      };
+    },
   },
   checkPref: function (state = [], action) {
       switch (action.type) {
