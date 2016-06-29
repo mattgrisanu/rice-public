@@ -1,6 +1,6 @@
 var intialstate =  {
   user: {
-      user_id: '',
+      clientId: '',
       friends: [],
       preferences: [],
       isOnboarded: false
@@ -32,7 +32,7 @@ var user = (state = intialstate.user, action) => {
 
         return {
           ...state,
-          clientID: action.profile.clientID,
+          clientId: action.profile.clientId,
           name: action.profile.name,
           email: action.profile.email,
           isOnboarded: action.profile.isOnboarded || false
