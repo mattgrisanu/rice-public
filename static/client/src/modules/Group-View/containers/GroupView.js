@@ -24,13 +24,13 @@ class GroupView extends Component {
   componentDidMount() {
     const { user, friends, group, location } = this.props;
     this.getFriendsInfo();
-    this.addToGroup(this.props.user.user_id);
+    this.addToGroup(this.props.user.clientId);
   }
 
   getFriendsInfo() {
     // var user = this.props.user.usder_id
-    axios2(userURL, '/users/users', 'get', {
-      user_id: this.props.user.user_id,
+    axios2(userURL, '/users/friends', 'get', {
+      user_id: this.props.user.clientId,
     })
       .then(function (response) {
         console.log('db response for GET users', response);

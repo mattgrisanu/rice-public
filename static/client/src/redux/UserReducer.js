@@ -41,9 +41,13 @@ var user = (state = intialstate.user, action) => {
       case 'USER_ISONBOARDED':
         return {
           ...state,
-          clientId: action.profile.clientID,
-          isOnboarded: action.profile.isOnboarded
+          isOnboarded: true
 
+        }
+      case 'IMPORT_PREFS':
+        return {
+          ...state,
+          preferences: action.prefsArr
         }
 
       default:

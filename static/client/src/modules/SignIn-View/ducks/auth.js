@@ -1,8 +1,9 @@
 import Auth0Lock from 'auth0-lock';
 import Auth0 from 'auth0-js';
 import { combineReducers } from 'redux';
+import { browserHistory } from 'react-router';
 
-const clientID = '0n9MhBFbxQkiNcGumeeryy7q3seWy4oz';
+const clientId = '0n9MhBFbxQkiNcGumeeryy7q3seWy4oz';
 const auth0Namespace = 'dconger.auth0.com';
 
 /* Constants */
@@ -59,7 +60,7 @@ function lockError(err) {
 }
 
 export function login() {
-  const lock = new Auth0Lock(clientID, auth0Namespace);
+  const lock = new Auth0Lock(clientId, auth0Namespace);
   const params = {
       authParams: { scope: 'openid email' }
   };
@@ -73,7 +74,7 @@ export function login() {
       localStorage.setItem('profile', JSON.stringify(profile))
       localStorage.setItem('id_token', token)
       dispatch(lockSuccess(profile, token))
-      // do browserHistory here (remember to import browserHistory from react-router at the top)
+      browserHistory.push('/home');
     })
   }
 }
