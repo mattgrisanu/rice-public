@@ -1,0 +1,16 @@
+.react-rater {
+  display: inline-block;
+  line-height: normal; }
+  .react-rater a {
+    cursor: pointer;
+    color: #ccc; }
+    .react-rater a.will-be-active {
+      color: #F5A71B; }
+    .react-rater a.is-active {
+      color: #F5A71B; }
+    .react-rater a.is-disabled {
+      color: #ccc;
+      cursor: not-allowed; }
+  .react-rater.is-disabled a {
+    cursor: default; }
+

@@ -3,42 +3,39 @@ import { connect } from 'react-redux';
 // import { actions } from './../ducks/rating-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
-import RatingEntry from './../components/RatingEntry';
-import StarRating from 'react-star-rating';
-
+// import RatingEntry from './../components/RatingEntry';
+// import StarRating from 'react-star-rating';
+import Rater from 'react-rater';
+import './../RatingViewStyles.scss';
 // import './react-star-rating.min.css';
 
 export default class RatingView extends Component {
-  constructor (props) {
-    super(props)
-    // this.handleRatingClick.bind(this, pass, args, here)
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    const { business } = this.props;
+    //update state.user.user_id = tesetData.clientId
   }
 
-  handleRatingClick(e, data) {
-    console.log(e, data)
-    // alert('You left a ' + data.rating + ' star rating for ' + data.caption);
-  } 
-  render () {
+  handleRate(rating, lastRating) {
+    console.log('clicked rating: ', lastRating);
+  }
+  render() {
     return (
-      <div className='RatingView-container'>
-        <h1>{ this.props.business_name }</h1>
-        <form onSubmit={this.handleRatingClick}>
-          <StarRating name="react-star-rating" caption="Rate this component!" totalStars={5} />
-          <button type="submit" className="btn btn-primary">Submit Rating</button>
-        </form>      
+      <div className="RatingView-container">
+        <h1>{ this.props.business.name }</h1>
+        <Rater className="react-rater" onRate={this.handleRate.bind(this)} />
+
       </div>
     );
   }
-};
+}
         // <RatingEntry { ...this.props } />
 
 const mapStateToProps = state => (
   {
-    business_id: state.restaurant.business_id,
-    business_name: state.restaurant.name,
-    business_address: state.restaurant.address,
-    business_city: state.restaurant.city,
-    business_state:  state.restaurant.state
+    business: state.restaurant,
   }
 );
 
@@ -47,3 +44,4 @@ const mapDispatchToProps = dispatch => (
 );
 
 RatingView = connect(mapStateToProps, mapDispatchToProps)(RatingView);
+export default RatingView;
