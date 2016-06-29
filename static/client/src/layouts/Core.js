@@ -10,7 +10,7 @@ function CoreLayout({ children }) {
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">
-            <h1>Rice</h1>
+            <h1 className="heading">Rice</h1>
           </div>
           <div className="col-md-3"></div>
         </div>

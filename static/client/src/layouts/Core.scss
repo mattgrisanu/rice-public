@@ -7,12 +7,24 @@ $brand-white: rgb(255, 255, 255);
 $brand-dark: rgb(51, 49, 70);
 $brand-medium: rgb(54, 72, 94);
 $brand-highlight: rgb(214, 233, 236);
+$brand-shadow: rgba(0, 0, 0, 0.2);
 
 $border-radius: 4px;
 
 /* Top Level Styles */
 body {
   background: $brand-highlight;
+}
+
+h1.heading {
+  height: 60px;
+  padding-top: 10px;
+  padding-left: 90px;
+
+  background-image: url(../../assets/rice.png);
+  background-position: 0 0;
+  background-size: 80px;
+  background-repeat: no-repeat;
 }
 
 /* Core Styles */
