@@ -15,7 +15,7 @@ class PrefView extends Component {
   }
 
   componentDidMount() {
-    // const { preferences, pickedPrefs } = this.props;
+    // this.props.actions.isOnboarded = this.props.actions.isOnboarded.bind(this);
   }
 
   addPref(prefId) {
@@ -32,13 +32,12 @@ class PrefView extends Component {
     })
     .then(function (response) {
       console.log('[PrefView] response', response);
+      this.props.actions.isOnboarded();
       browserHistory.push('/onboarding/addfriends');
-    })
+    }.bind(this))
     .catch(function (error) {
       console.log('[PrefView] error', error);
     });
-
-    browserHistory.push('/onboarding/addfriends');
   }
 
   render() {

@@ -38,6 +38,12 @@ var user = (state = intialstate.user, action) => {
           isOnboarded: action.profile.isOnboarded || false
         }
 
+      case 'USER_ISONBOARDED':
+        return {
+          ...state,
+          isOnboarded: true
+        }
+
       default:
           return state;
     }
