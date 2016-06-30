@@ -41,7 +41,6 @@ module.exports = {
                 loader: 'transform-loader/cacheable?ejsify'
             },
             { test: /\.json$/, loader: 'json'},
-<<<<<<< HEAD
             {
                 test: /\.scss$/,
                 loaders: ['style', 'css', 'sass']
@@ -51,9 +50,6 @@ module.exports = {
                 loader: "url-loader",
                 query: { mimetype: "image/png" }
             }
-=======
-            {test: /\.scss$/, loaders: ['style', 'css', 'sass']}
->>>>>>> (feat) Make POST request to BusinessService with review
         ]
     },
     resolve: {
