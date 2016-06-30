@@ -31,14 +31,14 @@ export default class RatingView extends Component {
   /** POST **/
   handleSubmit (txt) {
     console.log('AJAX input =>', this.state ,{
-      clientId: this.props.user.user_id,
+      clientId: this.props.user.clientId,
       business_id: this.props.business.business_id,
       rating: this.state.score,
       review: txt
     });
     
     api(businessUrl, '/business/review', 'post', {
-      clientId: this.props.user.user_id,
+      clientId: this.props.user.clientId,
       business_id: this.props.business.business_id,
       rating: this.state.score,
       review: txt
