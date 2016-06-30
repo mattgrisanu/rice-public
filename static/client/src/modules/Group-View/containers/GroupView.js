@@ -59,7 +59,7 @@ class GroupView extends Component {
       group,
     })
       .then(function (response) {
-        console.log('db response for get friends preferences', response);
+        console.log('db response for get friends preferences', response.data);
         //save response preferences back to action group preferences
         self.props.actions.importGroupPref(response.data);
         //send group preferences to axiospostRec
@@ -72,7 +72,7 @@ class GroupView extends Component {
           location: userLocation,
         })
         .then(function (recData) {
-          console.log('db recData for POST recommendation', recData);
+          console.log('db recData for POST recommendation', recData.data);
           self.props.actions.addRecs(recData);
           axios2(businessURL, '/business/yelp', 'post', recData)
             .then(function (successAdd) {
