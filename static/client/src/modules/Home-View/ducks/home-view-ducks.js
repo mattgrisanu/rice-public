@@ -7,9 +7,10 @@ module.exports = {
       };
     },
     addRecs(recObj) {
+      console.log("IM HERE")
       return {
         type: 'ADD_RECS',
-        recs: recObj.items,
+        recs: recObj.response,
       };
     },
     importPreferences(prefsArr) {

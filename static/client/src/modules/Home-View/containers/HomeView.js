@@ -10,7 +10,7 @@ const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
 const businessURL = 'http://localhost:3002/api';
-const recURL = 'http://localhost:5000/api';
+const recURL = 'http://first-371241559.us-east-1.elb.amazonaws.com/query';
 const userURL = 'http://localhost:3001/api';
 
 
@@ -26,6 +26,7 @@ class HomeView extends Component {
   }
   componentWillMount() {
     this.importPreferences();
+    this.getFriendsInfo();
   }
 
   componentDidMount() {
@@ -36,7 +37,6 @@ class HomeView extends Component {
 
 
   getFriendsInfo() {
-    // var user = this.props.user.usder_id
     const user = this.props.user.clientId;
 
     axios2(userURL, '/users/friends', 'post', {
@@ -77,32 +77,49 @@ class HomeView extends Component {
 
   axiosSoloPost() {
     //ADD addtributes that people are looking for
-    const users = [this.props.user.clinetId].concat(this.props.friends);
+    const users = [this.props.user.clientId].concat(this.props.friends);
     const userPreferences = this.props.preferences;
     const userLocation = this.props.location;
-    axios2(recURL, '/restaurants', 'post', {
-      user_ids: users,
-      preferences: {
-        categories: userPreferences,
-        attributes: [],
-      },
-      location: userLocation,
-    })
-    .then(function (response) {
-      console.log('db response for POST recommendation', response);
+    // axios2(recURL, '/filtered_recs', 'post', {
+    //   // user_ids: users,
+    //   // preferences: {
+    //   //   categories: userPreferences,
+    //   //   attributes: [],
+    //   // },
+    //   // location: userLocation,
+    //   users: users[0],
+    //   query: userPreferences[0],
+    // })
+    // .then(function (response) {
+    //   console.log('db response for POST recommendation', response);
+    var response = { 
+    response: [{
+      cuisine: "cafes",
+      id: "unlessstring",
+      name: "The Beat Coffeehouse & Records",
+      rating: 0.20202,
+      userRated: false
+    },
+    {
+      cuisine: "french",
+      id: "unlessstring",
+      name: "Sunrise Coffee",
+      rating: 0.20202,
+      userRated: false
+    }]
+  }
       this.props.actions.addRecs(response);
-      //yelp api call
       axios2(businessURL, '/business/yelp', 'post', response)
         .then(function (successAdd) {
-          console.log('back from saving yelp data pushing user to /restaurant', successAdd);
+          console.log('back from saving yelp data pushing user to /restaurant', successAdd.config.data);
           browserHistory.push('/restaurant');
         });
-    }.bind(this))
-    .catch(function (error) {
-      console.error(error);
-    });
+    // }.bind(this))
+    // .catch(function (error) {
+    //   console.error(error);
+    // });
     //ERASE AFTER DAN's REC is up
-          browserHistory.push('/restaurant');
+          // browserHistory.push('/restaurant');
 
   }
 

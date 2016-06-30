@@ -21,7 +21,7 @@ module.exports = {
     addRecs(recObj) {
       return {
         type: 'ADD_RECS',
-        recs: recObj.items,
+        recs: recObj.response,
       };
     },
   },
