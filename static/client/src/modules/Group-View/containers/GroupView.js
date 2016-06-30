@@ -29,8 +29,8 @@ class GroupView extends Component {
 
   getFriendsInfo() {
     // var user = this.props.user.usder_id
-    axios2(userURL, '/users/friends', 'get', {
-      user_id: this.props.user.clientId,
+    axios2(userURL, '/users/friends', 'post', {
+      clientId: this.props.user.clientId,
     })
       .then(function (response) {
         console.log('db response for GET users', response);

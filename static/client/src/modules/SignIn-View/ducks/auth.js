@@ -3,7 +3,7 @@ import Auth0 from 'auth0-js';
 import { combineReducers } from 'redux';
 import { browserHistory } from 'react-router';
 
-const clientId = '0n9MhBFbxQkiNcGumeeryy7q3seWy4oz';
+const DAN = '0n9MhBFbxQkiNcGumeeryy7q3seWy4oz';
 const auth0Namespace = 'dconger.auth0.com';
 
 /* Constants */
@@ -60,7 +60,7 @@ function lockError(err) {
 }
 
 export function login() {
-  const lock = new Auth0Lock(clientId, auth0Namespace);
+  const lock = new Auth0Lock(DAN, auth0Namespace);
   const params = {
       authParams: { scope: 'openid email' }
   };

@@ -32,6 +32,7 @@ var user = (state = intialstate.user, action) => {
 
         return {
           ...state,
+
           clientId: action.profile.clientId,
           name: action.profile.name,
           email: action.profile.email,

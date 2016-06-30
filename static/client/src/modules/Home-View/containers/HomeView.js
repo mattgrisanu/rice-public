@@ -26,7 +26,7 @@ class HomeView extends Component {
   }
   componentWillMount() {
     this.importPreferences();
-    // this.getFriendsInfo();
+    this.getFriendsInfo();
   }
 
   componentDidMount() {
@@ -37,8 +37,10 @@ class HomeView extends Component {
 
   getFriendsInfo() {
     // var user = this.props.user.usder_id
+    const user = this.props.user.clientId;
+
     axios2(userURL, '/users/friends', 'post', {
-      user_id: this.props.user.clientId,
+      clientId: user,
     })
       .then(function (response) {
         console.log('db response for post users', response);

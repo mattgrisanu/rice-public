@@ -54,9 +54,9 @@ class FriendView extends Component {
   handleSubmit() {
     console.log("FRIEND VIEW handleSubmit", this.props.friends);
 
-    instance.post('/users/friends', {
+    instance.post('/users/friends/new', {
         // user_id: 'this.props.user.clientId',
-        user_id: 'Matt',
+        clientId: this.props.user.clientId,
         // friends: [this.props.friends (friends_id1, friends_id2)],
         friends: this.props.friends
       })
