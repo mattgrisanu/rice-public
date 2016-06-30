@@ -12,5 +12,17 @@ module.exports = {
         recs: recObj.items,
       };
     },
+    importPreferences(prefsArr) {
+      return {
+        type: 'IMPORT_PREFS',
+        prefsArr,
+      };
+    },
+    importFriends(friendsArr) {
+      return {
+        type: 'IMPORT_FRIENDS',
+        friendsArr,
+      };
+    },
   },
 };

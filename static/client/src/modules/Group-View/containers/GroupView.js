@@ -24,13 +24,13 @@ class GroupView extends Component {
   componentDidMount() {
     const { user, friends, group, location } = this.props;
     this.getFriendsInfo();
-    this.addToGroup(this.props.user.user_id);
+    this.addToGroup(this.props.user.clientId);
   }
 
   getFriendsInfo() {
     // var user = this.props.user.usder_id
-    axios2(userURL, '/users/users', 'get', {
-      user_id: this.props.user.user_id,
+    axios2(userURL, '/users/friends', 'post', {
+      clientId: this.props.user.clientId,
     })
       .then(function (response) {
         console.log('db response for GET users', response);
@@ -59,7 +59,7 @@ class GroupView extends Component {
       group,
     })
       .then(function (response) {
-        console.log('db response for get friends preferences', response);
+        console.log('db response for get friends preferences', response.data);
         //save response preferences back to action group preferences
         self.props.actions.importGroupPref(response.data);
         //send group preferences to axiospostRec
@@ -72,7 +72,7 @@ class GroupView extends Component {
           location: userLocation,
         })
         .then(function (recData) {
-          console.log('db recData for POST recommendation', recData);
+          console.log('db recData for POST recommendation', recData.data);
           self.props.actions.addRecs(recData);
           axios2(businessURL, '/business/yelp', 'post', recData)
             .then(function (successAdd) {

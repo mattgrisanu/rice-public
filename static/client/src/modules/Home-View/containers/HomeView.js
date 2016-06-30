@@ -11,6 +11,7 @@ const locationsArr = [
 ];
 const businessURL = 'http://localhost:3002/api';
 const recURL = 'http://localhost:5000/api';
+const userURL = 'http://localhost:3001/api';
 
 
 class HomeView extends Component {
@@ -23,10 +24,48 @@ class HomeView extends Component {
     this._onSelect = this._onSelect.bind(this);
     this.axiosSoloPost = this.axiosSoloPost.bind(this);
   }
+  componentWillMount() {
+    this.importPreferences();
+  }
 
   componentDidMount() {
+    this.getFriendsInfo();
     const { user, friends, location, preferences } = this.props;
     // call this.getAllUsers() to update state with users from DB
+  }
+
+
+  getFriendsInfo() {
+    // var user = this.props.user.usder_id
+    const user = this.props.user.clientId;
+
+    axios2(userURL, '/users/friends', 'post', {
+      clientId: user,
+    })
+      .then(function (response) {
+        console.log('db response for post users', response);
+        //action to update redux store user.friends
+        console.log(response.data)
+        this.props.actions.importFriends(response.data);
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+        // handle user db error
+      });
+  }
+
+  importPreferences() {
+    const user = this.props.user.clientId;
+    axios2(userURL, '/users/preferences', 'post', {
+      clientId: user,
+    })
+    .then(function(response) {
+      //call action to update user (response.data)
+      this.props.actions.importPreferences(response.data);
+    }.bind(this))
+    .catch(function(err) {
+      console.error(err);
+    });
   }
 
   _onSelect(option) {
@@ -38,10 +77,10 @@ class HomeView extends Component {
 
   axiosSoloPost() {
     //ADD addtributes that people are looking for
-    const users = [this.props.user.user_id].concat(this.props.friends);
+    const users = [this.props.user.clinetId].concat(this.props.friends);
     const userPreferences = this.props.preferences;
     const userLocation = this.props.location;
-    axios2(recURL, '/restaurants', post, {
+    axios2(recURL, '/restaurants', 'post', {
       user_ids: users,
       preferences: {
         categories: userPreferences,
@@ -60,8 +99,11 @@ class HomeView extends Component {
         });
     }.bind(this))
     .catch(function (error) {
-      console.log(error);
+      console.error(error);
     });
+    //ERASE AFTER DAN's REC is up
+          browserHistory.push('/restaurant');
+
   }
 
   render() {

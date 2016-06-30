@@ -36,7 +36,7 @@ class PrefView extends Component {
       browserHistory.push('/onboarding/addfriends');
     }.bind(this))
     .catch(function (error) {
-      console.log('[PrefView] error', error);
+      console.log('[PrefView] error GOING TO add new user', error);
     });
   }
 

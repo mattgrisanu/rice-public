@@ -32,6 +32,7 @@ var user = (state = intialstate.user, action) => {
 
         return {
           ...state,
+
           clientId: action.profile.clientId,
           name: action.profile.name,
           email: action.profile.email,
@@ -42,6 +43,12 @@ var user = (state = intialstate.user, action) => {
         return {
           ...state,
           isOnboarded: true
+
+        }
+      case 'IMPORT_PREFS':
+        return {
+          ...state,
+          preferences: action.prefsArr
         }
 
       default:
