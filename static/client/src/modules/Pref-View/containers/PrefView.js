@@ -37,26 +37,8 @@ class PrefView extends Component {
     }.bind(this))
     .catch(function (error) {
       console.log('[PrefView] error GOING TO add new user', error);
-      // this.addUser()
-    }.bind(this));
+    });
   }
-
-  // addUser() {
-  //   api(userURL, '/users/user', 'post', {
-  //     name: this.props.user.name,
-  //     email: this.props.user.email,
-  //     isOnboarded: true,
-  //     preferences: this.props.pickedPrefs,
-  //   })
-  //   .then(function (response) {
-  //     console.log('[PrefView] add new user', response);
-  //     this.props.actions.isOnboarded();
-  //     browserHistory.push('/onboarding/addfriends');
-  //   }.bind(this))
-  //   .catch(function (error) {
-  //     console.log('[PrefView] error in add user', error);
-  //   });
-  // }
 
   render() {
     return (
