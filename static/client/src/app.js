@@ -23,8 +23,7 @@ export default () => {
         <Route path="onboarding/preferences" component={authenticatedComponent(PrefView)} />
         <Route path="onboarding/addfriends" component={authenticatedComponent(FriendView)} />
         <Route path="restaurant/:id" component={checkBoarded(authenticatedComponent(RestaurantView), { withValue: false, redirectTo: '/onboarding/preferences' })} />
-		<Route path="rating" component={ authenticatedComponent(RatingView) } />
+		    <Route path="rating" component={ authenticatedComponent(RatingView) } />
       </Route>
     </Route>
-  );
-};
+)};
