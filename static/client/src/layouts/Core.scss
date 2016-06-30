@@ -12,6 +12,14 @@ $brand-shadow: rgba(0, 0, 0, 0.2);
 $border-radius: 4px;
 
 /* Top Level Styles */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   background: $brand-highlight;
 }

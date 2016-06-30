@@ -1,0 +1,27 @@
+$border-radius: 4px;
+
+.HomeView-container {
+  .option {
+    width: 100%;
+    height: 112px;
+
+    border-radius: $border-radius;
+
+    background-image: url('../../../../assets/option-solo-crop.jpg');
+    background-size: 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+
+    &.option-solo {
+      background-image: url('../../../../assets/option-solo-crop.jpg');
+    }
+
+    &.option-group {
+      background-image: url('../../../../assets/option-group-crop.jpg');
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

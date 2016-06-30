@@ -6,6 +6,7 @@ import { browserHistory, Link } from 'react-router';
 // import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import axios2 from './../../../utils/api';
+import './HomeView.scss';
 const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
@@ -125,8 +126,12 @@ class HomeView extends Component {
 
   render() {
     return (
-      <div className="container HomeView-container">
+      <div className="HomeView-container">
         <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
+
+        <div className="option option-solo" onClick={this.axiosSoloPost.bind(null)}>Get a Solo Recommendation</div>
+        <div className="option option-group" onClick={this.axiosSoloPost.bind(null)}>Get a Group Recommendation</div>
+
         <button onClick={this.axiosSoloPost.bind(null)}>Solo</button>
         <button><Link to="/group">Make Group</Link></button>
       </div>

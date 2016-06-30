@@ -47,6 +47,11 @@ module.exports = {
                 test: /\.png$/,
                 loader: "url-loader",
                 query: { mimetype: "image/png" }
+            },
+            {
+                test: /\.jpg$/,
+                loader: "url-loader",
+                query: { mimetype: "image/jpg" }
             }
         ]
     },
