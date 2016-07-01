@@ -127,11 +127,12 @@ class HomeView extends Component {
   render() {
     return (
       <div className="HomeView-container">
-        <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
-
         <div className="option option-solo" onClick={this.axiosSoloPost.bind(null)}><h3>Get a Solo Recommendation</h3></div>
         <Link to="/group"><div className="option option-group"><h3>Get a Group Recommendation</h3></div></Link>
         { this.props.restaurant.toRate ? <Link to="/rating"><div className="option option-rating"><h3>Rate Your Last Restaurant</h3></div></Link> : null }
+
+        <div className="option option-location"><h3>Select Your Location</h3></div>
+        <Dropdown options={locationsArr} onChange={this._onSelect} value={locationsArr[0]} placeholder="Select Your Location" />
       </div>
     );
   }
