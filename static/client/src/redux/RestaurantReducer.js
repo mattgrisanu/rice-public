@@ -22,11 +22,11 @@ const restaurant = (state = intialstate.restaurant, action) => {
         toRate: true
       };
 
-    case 'RESTAURANT_DECLINE':
-      console.log('reducer RESTAURANT_DECLINE', action);
-      return {
-        ...state,
-      };
+    // case 'RESTAURANT_DECLINE':
+    //   console.log('reducer RESTAURANT_DECLINE', action);
+    //   return {
+    //     ...state,
+    //   };
 
     case 'TOGGLE_RATE_FLAG':
       return {
