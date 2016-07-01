@@ -40,6 +40,7 @@ const RestaurantViewEntry = React.createClass({
 
   handleDecline() {
     this.props.actions.restaurantDecline();
+    this.props.refresh();
   },
 
   render() {

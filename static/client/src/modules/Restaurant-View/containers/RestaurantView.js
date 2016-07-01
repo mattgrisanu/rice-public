@@ -16,6 +16,12 @@ let RestaurantView = React.createClass({
   },
 
   componentDidMount() {
+    console.log('[RestaurantView] componentDidMount');
+    this.refreshComponent();
+  },
+
+  refreshComponent() {
+    console.log('[RestaurantView] refreshComponent');
     const restaurant = this.retrieveRecommendations();
     this.retrieveRestaurant(restaurant);
   },
@@ -112,7 +118,7 @@ let RestaurantView = React.createClass({
     if (this.props.restaurant.latitude) {
       view = (
         <div className="RestaurantView">
-          <RestaurantViewEntry {...this.props} />
+          <RestaurantViewEntry {...this.props} refresh={this.refreshComponent} />
         </div>
       );
     } else {
