@@ -87,7 +87,7 @@ class GroupView extends Component {
         console.log(error);
         // need to handle friend db error
       });
-      });
+    });
   }
 
   searchUpdated(term) {

@@ -7,6 +7,7 @@ import CoreLayout from 'layouts/Core';
 import LandingLayout from 'layouts/Landing';
 import SignIn from 'modules/SignIn-View/containers/SignIn';
 import RestaurantView from 'modules/Restaurant-View/containers/RestaurantView';
+import RatingView from 'modules/Ratings-View/containers/RatingView';
 import GroupView from 'modules/Group-View/containers/GroupView';
 import authenticatedComponent from 'containers/Auth';
 import checkBoarded from 'containers/Boarding';
@@ -22,7 +23,7 @@ export default () => {
         <Route path="onboarding/preferences" component={authenticatedComponent(PrefView)} />
         <Route path="onboarding/addfriends" component={authenticatedComponent(FriendView)} />
         <Route path="restaurant" component={checkBoarded(authenticatedComponent(RestaurantView), { withValue: false, redirectTo: '/onboarding/preferences' })} />
+		    <Route path="rating" component={ authenticatedComponent(RatingView) } />
       </Route>
     </Route>
-  );
-};
+)};

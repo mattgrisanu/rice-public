@@ -28,6 +28,12 @@ const restaurant = (state = intialstate.restaurant, action) => {
         ...state,
       };
 
+    case 'TOGGLE_RATE_FLAG':
+      return {
+        ...state,
+        toRate: !state.toRate
+      }
+
     default:
       return state;
   }

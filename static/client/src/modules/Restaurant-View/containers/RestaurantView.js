@@ -99,7 +99,10 @@ let RestaurantView = React.createClass({
       .then(function handleResponse(response) {
         console.log('[RestaurantView] /api/business/info', response.data);
         this.props.actions.restaurantUpdate(response.data);
-      }.bind(this));
+      }.bind(this))
+      .catch(function (error) {
+        console.log(error);
+      });
   },
 
   render() {

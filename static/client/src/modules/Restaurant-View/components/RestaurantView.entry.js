@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory, Link } from 'react-router';
 import GoogleMap from 'google-map-react';
 import FontAwesome from 'react-fontawesome';
 import './RestaurantView.entry.scss';
@@ -30,6 +31,11 @@ const RestaurantViewEntry = React.createClass({
         },
       },
     };
+  },
+
+  handleSubmit () {
+    this.props.actions.restaurantAccept.bind(null, 1)
+    browserHistory.push('/rating');
   },
 
   render() {
@@ -64,7 +70,7 @@ const RestaurantViewEntry = React.createClass({
 
           <div className="row RestaurantViewEntry-Buttons">
             <div className="col-md-6">
-              <button type="button" onClick={this.props.actions.restaurantAccept.bind(null, 1)}>Accept</button>
+              <button type="button" onClick={this.handleSubmit.bind(this)}>Accept</button>
             </div>
             <div className="col-md-6">
               <button type="button" onClick={this.props.actions.restaurantDecline.bind(null, 1)}>Decline</button>
