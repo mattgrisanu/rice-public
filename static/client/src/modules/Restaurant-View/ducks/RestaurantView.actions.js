@@ -7,17 +7,15 @@ export function restaurantUpdate(restaurant) {
 }
 
 // accept restaurant
-export function restaurantAccept(id) {
+export function restaurantAccept() {
   return {
     type: 'RESTAURANT_ACCEPT',
-    id,
   };
 }
 
 // decline restaurant
-export function restaurantDecline(id) {
+export function restaurantDecline() {
   return {
     type: 'RESTAURANT_DECLINE',
-    id,
   };
 }
