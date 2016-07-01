@@ -35,7 +35,7 @@ const RestaurantViewEntry = React.createClass({
 
   handleAccept() {
     this.props.actions.restaurantAccept();
-    browserHistory.push('rating');
+    browserHistory.push('/rating');
   },
 
   handleDecline() {
