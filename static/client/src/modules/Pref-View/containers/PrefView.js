@@ -14,16 +14,25 @@ class PrefView extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    // this.props.actions.isOnboarded = this.props.actions.isOnboarded.bind(this);
-  }
+  componentDidUpdate(prevProps) {
+     if (this.props.user.name !== prevProps.user.name) {
+       this.refreshComponent();
+     }
+   }
+
+   refreshComponent() {
+     console.log('[PrefView] refreshComponent');
+     this.saveUser();
+   }
 
   addPref(prefId) {
     console.log('[PrefView] addPref', prefId);
     this.actions.checkPref(prefId);
   }
 
-  handleSubmit() {
+  saveUser() {
+    var user = this.props.user.name
+    console.log('new user name ==>', user);
     api(userURL, '/users/user/update', 'post', {
       name: this.props.user.name,
       email: this.props.user.email,
@@ -40,10 +49,24 @@ class PrefView extends Component {
     });
   }
 
+  handleSubmit() {
+    var userName= document.getElementById('userName').value
+    if(this.props.user.name === null) {
+      this.props.actions.updateName(userName);
+    }
+  }
+
   render() {
     return (
       <div className="PrefView-container">
-        {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="userName" placeholder="Name"></input>
+          </div>
+        </form>
+        <div className="PrefView-Preferences">
+          {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+        </div>
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
     );

@@ -17,6 +17,9 @@ var user = (state = intialstate.user, action) => {
         }
         return { ...state, preferences: prefArr }
 
+      case 'UPDATE_NAME':
+        return { ...state, name: action.name }
+        
       case 'ADD_FRIEND':
         var friendArr = state.friends.slice();
         if(friendArr.indexOf(action.friend_id) === -1) {

@@ -3,12 +3,18 @@ module.exports = {
     checkPref: function (pref_id) {
       return {
         type: 'ITEM_CHECKED',
-        pref_id: pref_id
+        pref_id,
       };
     },
     isOnboarded: function() {
       return {
-        type: 'USER_ISONBOARDED'
+        type: 'USER_ISONBOARDED',
+      };
+    },
+    updateName: function(name) {
+      return {
+        type: 'UPDATE_NAME',
+        name,
       };
     },
   },
