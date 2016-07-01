@@ -10,10 +10,9 @@ var intialstate =  {
 var user = (state = intialstate.user, action) => {
     switch (action.type) {
       case 'ITEM_CHECKED':
-         // return Object.assign({}, state, {preferences: [...state.preferences, action.pref_id]})
         var prefArr = state.preferences.slice();
-        if(prefArr.indexOf(action.pref_id) === -1) {
-          prefArr.push(action.pref_id)
+        if(prefArr.indexOf(action.prefId) === -1) {
+          prefArr.push(action.prefId)
         }
         return { ...state, preferences: prefArr }
 

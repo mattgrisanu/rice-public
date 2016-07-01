@@ -1,9 +1,9 @@
 module.exports = {
   actions: {
-    checkPref: (pref_id) => {
+    checkPref: (prefId) => {
       return {
         type: 'ITEM_CHECKED',
-        pref_id,
+        prefId,
       };
     },
     isOnboarded: () => {
