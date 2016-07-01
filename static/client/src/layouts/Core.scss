@@ -42,5 +42,5 @@ h1.heading {
   background: $brand-white;
 
   border-radius: $border-radius;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 1px $brand-shadow;
 }
