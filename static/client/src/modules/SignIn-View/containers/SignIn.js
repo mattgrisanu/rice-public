@@ -17,7 +17,6 @@ class SignIn extends Component {
 			      <button onClick={loginStart}>
 			      	Login
 			      </button>
-
 			      <button onClick={logoutUser}>
 			      	Logout
 			      </button>

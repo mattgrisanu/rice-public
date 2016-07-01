@@ -24,6 +24,11 @@ class PrefView extends Component {
   }
 
   handleSubmit() {
+    var userName= document.getElementById('userName').value
+    if(this.props.user.name === null) {
+      this.props.actions.updateName(userName);
+      console.log('my new store => ', this.props.user.name);
+    }
     api(userURL, '/users/user/update', 'post', {
       name: this.props.user.name,
       email: this.props.user.email,
@@ -43,7 +48,14 @@ class PrefView extends Component {
   render() {
     return (
       <div className="PrefView-container">
-        {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+        <form class="form-inline">
+          <div class="form-group">
+            <input type="text" class="form-control" id="userName" placeholder="Name"></input>
+          </div>
+        </form>
+        <div className="PrefView-Preferences">
+          {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+        </div>
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
     );
