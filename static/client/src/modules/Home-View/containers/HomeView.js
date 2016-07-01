@@ -93,7 +93,7 @@ class HomeView extends Component {
     // })
     // .then(function (response) {
     //   console.log('db response for POST recommendation', response);
-    var response = { 
+    var response = {
     response: [{
       cuisine: "cafes",
       id: "unlessstring",
@@ -129,11 +129,9 @@ class HomeView extends Component {
       <div className="HomeView-container">
         <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
 
-        <div className="option option-solo" onClick={this.axiosSoloPost.bind(null)}>Get a Solo Recommendation</div>
-        <div className="option option-group" onClick={this.axiosSoloPost.bind(null)}>Get a Group Recommendation</div>
-
-        <button onClick={this.axiosSoloPost.bind(null)}>Solo</button>
-        <button><Link to="/group">Make Group</Link></button>
+        <div className="option option-solo" onClick={this.axiosSoloPost.bind(null)}><h3>Get a Solo Recommendation</h3></div>
+        <Link to="/group"><div className="option option-group"><h3>Get a Group Recommendation</h3></div></Link>
+        { this.props.restaurant.toRate ? <Link to="/rating"><div className="option option-rating"><h3>Rate Your Last Restaurant</h3></div></Link> : null }
       </div>
     );
   }
@@ -142,6 +140,7 @@ HomeView.propTypes = {
   user: React.PropTypes.object,
   friends: React.PropTypes.array,
   location: React.PropTypes.object,
+  restaurant: React.PropTypes.object,
 };
 
 const mapStateToProps = function mapStateToProps(state) {
@@ -150,6 +149,7 @@ const mapStateToProps = function mapStateToProps(state) {
     friends: state.user.friends,
     preferences: state.user.preferences,
     location: state.location,
+    restaurant: state.restaurant,
   };
 };
 
