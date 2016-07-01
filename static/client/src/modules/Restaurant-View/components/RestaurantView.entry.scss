@@ -1,1 +1,17 @@
 /* .RestaurantViewEntry-RestaurantInfo styles */
+.RestaurantViewEntry-RestaurantInfo {
+  margin-top: 16px;
+  font-size: 18px;
+
+  .address, .phone {
+    padding-left: 30px;
+  }
+
+  i {
+    margin-left: -20px;
+  }
+}
+
+.RestaurantViewEntry-Buttons {
+  margin-top: 16px;
+}

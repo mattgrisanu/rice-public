@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import GoogleMap from 'google-map-react';
 import FontAwesome from 'react-fontawesome';
 import './RestaurantView.entry.scss';
@@ -33,9 +33,13 @@ const RestaurantViewEntry = React.createClass({
     };
   },
 
-  handleSubmit () {
-    this.props.actions.restaurantAccept.bind(null, 1)
-    browserHistory.push('/rating');
+  handleAccept() {
+    this.props.actions.restaurantAccept();
+    browserHistory.push('rating');
+  },
+
+  handleDecline() {
+    this.props.actions.restaurantDecline();
   },
 
   render() {
@@ -43,7 +47,7 @@ const RestaurantViewEntry = React.createClass({
 
     return (
       <div>
-        <h1>RestaurantViewEntry</h1>
+        <h2>{this.props.restaurant.name}</h2>
         <div className="row RestaurantViewEntry-GoogleMap">
           <div className="col-md-12" style={this.props.styles}>
             <GoogleMap
@@ -52,29 +56,30 @@ const RestaurantViewEntry = React.createClass({
             >
               <div className="place" lat={this.props.restaurant.latitude} lng={this.props.restaurant.longitude}>
                 <FontAwesome name="map-marker" size="2x" />
-                {this.props.restaurant.name}
               </div>
 
             </GoogleMap>
           </div>
+        </div>
 
-          <div className="row RestaurantViewEntry-RestaurantInfo">
-            <div className="col-md-12">
-              <h2>{this.props.restaurant.name}</h2>
-              <p>
-                {this.props.restaurant.address}<br/>
-                {this.props.restaurant.city}, {this.props.restaurant.state}<br/>
-              </p>
+        <div className="row RestaurantViewEntry-RestaurantInfo">
+          <div className="col-md-12">
+            <div className="address">
+              <i className="fa fa-building-o" aria-hidden="true"></i> {this.props.restaurant.address}<br/>
+              {this.props.restaurant.city}, {this.props.restaurant.state}<br/>
+            </div>
+            <div className="phone">
+              <i className="fa fa-phone" aria-hidden="true"></i> {this.props.restaurant.phone}
             </div>
           </div>
+        </div>
 
-          <div className="row RestaurantViewEntry-Buttons">
-            <div className="col-md-6">
-              <button type="button" onClick={this.handleSubmit.bind(this)}>Accept</button>
-            </div>
-            <div className="col-md-6">
-              <button type="button" onClick={this.props.actions.restaurantDecline.bind(null, 1)}>Decline</button>
-            </div>
+        <div className="row RestaurantViewEntry-Buttons">
+          <div className="col-md-6 text-center">
+            <button type="button" className="btn btn-danger btn-lg" onClick={this.handleDecline}>Decline</button>
+          </div>
+          <div className="col-md-6 text-center">
+            <button type="button" className="btn btn-success btn-lg" onClick={this.handleAccept}>Accept</button>
           </div>
         </div>
       </div>
