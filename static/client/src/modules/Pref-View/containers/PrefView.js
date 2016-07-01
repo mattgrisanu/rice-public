@@ -14,21 +14,25 @@ class PrefView extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    // this.props.actions.isOnboarded = this.props.actions.isOnboarded.bind(this);
-  }
+  componentDidUpdate(prevProps) {
+     if (this.props.user.name !== prevProps.user.name) {
+       this.refreshComponent();
+     }
+   }
+
+   refreshComponent() {
+     console.log('[PrefView] refreshComponent');
+     this.saveUser();
+   }
 
   addPref(prefId) {
     console.log('[PrefView] addPref', prefId);
     this.actions.checkPref(prefId);
   }
 
-  handleSubmit() {
-    var userName= document.getElementById('userName').value
-    if(this.props.user.name === null) {
-      this.props.actions.updateName(userName);
-      console.log('my new store => ', this.props.user.name);
-    }
+  saveUser() {
+    var user = this.props.user.name
+    console.log('new user name ==>', user);
     api(userURL, '/users/user/update', 'post', {
       name: this.props.user.name,
       email: this.props.user.email,
@@ -43,6 +47,13 @@ class PrefView extends Component {
     .catch(function (error) {
       console.log('[PrefView] error GOING TO add new user', error);
     });
+  }
+
+  handleSubmit() {
+    var userName= document.getElementById('userName').value
+    if(this.props.user.name === null) {
+      this.props.actions.updateName(userName);
+    }
   }
 
   render() {
