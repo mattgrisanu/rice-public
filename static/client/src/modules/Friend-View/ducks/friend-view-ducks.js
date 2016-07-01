@@ -1,15 +1,15 @@
 module.exports = {
   actions: {
-    'addFriend': function (friend_id) {
+    addFriend: (friendId) => {
       return {
         type: 'ADD_FRIEND',
-        friend_id: friend_id
+        friendId,
       };
     },
-    'getAllUsers': function() {
+    getAllUsers: () => {
       return {
-        type: 'GET_ALL_USERS'
-      }
-    }
-  }
-}
+        type: 'GET_ALL_USERS',
+      };
+    },
+  },
+};

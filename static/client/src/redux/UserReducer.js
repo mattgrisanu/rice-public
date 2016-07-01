@@ -21,8 +21,8 @@ var user = (state = intialstate.user, action) => {
         
       case 'ADD_FRIEND':
         var friendArr = state.friends.slice();
-        if(friendArr.indexOf(action.friend_id) === -1) {
-          friendArr.push(action.friend_id)
+        if(friendArr.indexOf(action.friendId) === -1) {
+          friendArr.push(action.friendId)
         }
         return { ...state, friends: friendArr }
 
