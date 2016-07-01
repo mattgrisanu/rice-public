@@ -16,19 +16,21 @@ let RestaurantView = React.createClass({
   },
 
   componentDidMount() {
-    console.log('[RestaurantView] componentDidMount');
     this.refreshComponent();
   },
 
+  componentDidUpdate(prevProps) {
+    if (this.props.recommendation !== prevProps.recommendation) {
+      this.refreshComponent();
+    }
+  },
+
   refreshComponent() {
-    console.log('[RestaurantView] refreshComponent');
     const restaurant = this.retrieveRecommendations();
     this.retrieveRestaurant(restaurant);
   },
 
   retrieveRecommendations() {
-    console.log('[RestaurantView] retrieveRecommendations');
-
     // mock recommendations array
     const mockRecommendations = [
       {
@@ -56,17 +58,13 @@ let RestaurantView = React.createClass({
 
     // retrieve restaurant recommendations from store
     const recommendations = this.props.recommendation || mockRecommendations;
-    console.log('[RestaurantView] recommendations', recommendations);
 
     // return the next recommendation in the store
     return recommendations[0] || undefined;
   },
 
   retrieveRestaurant(recommendation) {
-    console.log('[RestaurantView] retrieveRestaurant');
-
     // did we receive a restaurant?
-    console.log('recommendation', recommendation);
     if (!recommendation) {
       return;
     }
@@ -100,8 +98,6 @@ let RestaurantView = React.createClass({
     // });
 
     // retrieve restaurant data
-    console.log('GET', 'http://localhost:3002/api/business/info?name=' + encodeURIComponent(recommendation.name));
-
     axios.get('http://localhost:3002/api/business/info?name=' + encodeURIComponent(recommendation.name))
       .then(function handleResponse(response) {
         console.log('[RestaurantView] /api/business/info', response.data);
