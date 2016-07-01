@@ -22,6 +22,12 @@ html {
 
 body {
   background: $brand-highlight;
+  color: $brand-medium;
+}
+
+a, a:hover, a:visited, a:active {
+  text-decoration: none;
+  color: $brand-black;
 }
 
 h1.heading {
