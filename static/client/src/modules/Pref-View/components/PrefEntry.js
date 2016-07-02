@@ -12,7 +12,6 @@ export default class PrefEntry extends Component {
   handleSelect() {
     this.props.addPref(this.props.pref_id.name);
     this.setState({ selected: true });
-    console.log('handleSelect', this.state);
   }
 
   render() {
