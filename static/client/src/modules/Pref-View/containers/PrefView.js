@@ -65,6 +65,8 @@ class PrefView extends Component {
           </div>
         </form>
         <div className="PrefView-Preferences">
+          <div className="heading heading-cuisine"><h3>Select Your Cuisine Preferences</h3></div>
+
           <div className="row">
             {
               this.props.preferences.cuisines.map((pref, i) =>
