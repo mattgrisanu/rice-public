@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import PrefEntry from './../components/PrefEntry';
 import api from '../../../utils/api';
+import './PrefView.scss';
 
 const userURL = 'http://localhost:3001/api';
 
@@ -64,7 +65,13 @@ class PrefView extends Component {
           </div>
         </form>
         <div className="PrefView-Preferences">
-          {this.props.preferences.all.map((pref, i) => <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+          <div className="row">
+            {
+              this.props.preferences.cuisines.map((pref, i) =>
+                <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />
+              )
+            }
+          </div>
         </div>
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>

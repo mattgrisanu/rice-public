@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 
 export default class PrefEntry extends Component {
   constructor(props) {
@@ -8,7 +7,14 @@ export default class PrefEntry extends Component {
 
   render() {
     return (
-      <div onClick={function() {this.props.addPref(this.props.pref_id)}.bind(this)} className='PrefEntry-circle'>Hi {this.props.pref_id}</div>
-    )
+      <div className="col-md-4">
+        <div
+          onClick={function () {this.props.addPref(this.props.pref_id.name)}.bind(this)}
+          className={'option ' + this.props.pref_id.class}
+        >
+          <span>{this.props.pref_id.name}</span>
+        </div>
+      </div>
+    );
   }
-};
+}
