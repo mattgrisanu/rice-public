@@ -15,57 +15,56 @@ class PrefView extends Component {
   }
 
   componentDidUpdate(prevProps) {
-     if (this.props.user.name !== prevProps.user.name) {
-       this.refreshComponent();
-     }
-   }
+    if (this.props.user.name !== prevProps.user.name) {
+      this.refreshComponent();
+    }
+  }
 
    refreshComponent() {
-     console.log('[PrefView] refreshComponent');
      this.saveUser();
    }
 
   addPref(prefId) {
-    console.log('[PrefView] addPref', prefId);
     this.actions.checkPref(prefId);
   }
 
   saveUser() {
-    var user = this.props.user.name
-    console.log('new user name ==>', user);
+    const user = this.props.user.name
     api(userURL, '/users/user/update', 'post', {
-      name: this.props.user.name,
+      name: user,
       email: this.props.user.email,
       isOnboarded: true,
       preferences: this.props.pickedPrefs,
     })
-    .then(function (response) {
+    .then((response) => {
       console.log('[PrefView] response', response);
       this.props.actions.isOnboarded();
       browserHistory.push('/onboarding/addfriends');
-    }.bind(this))
-    .catch(function (error) {
+    })
+    .catch((error) => {
       console.log('[PrefView] error GOING TO add new user', error);
     });
   }
 
   handleSubmit() {
-    var userName= document.getElementById('userName').value
-    if(this.props.user.name === null) {
+    const userName = document.getElementById('userName').value;
+    if (this.props.user.name === null) {
       this.props.actions.updateName(userName);
+    } else {
+      this.saveUser();
     }
   }
 
   render() {
     return (
       <div className="PrefView-container">
-        <form class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control" id="userName" placeholder="Name"></input>
+        <form className="form-inline">
+          <div className="form-group">
+            <input type="text" className="form-control" id="userName" placeholder="Name"></input>
           </div>
         </form>
         <div className="PrefView-Preferences">
-          {this.props.preferences.all.map((pref, i) =>  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+          {this.props.preferences.all.map((pref, i) => <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
         </div>
         <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
@@ -73,7 +72,7 @@ class PrefView extends Component {
   }
 }
 
-const mapStateToProps = function (state) {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     pickedPrefs: state.user.preferences,
@@ -81,7 +80,7 @@ const mapStateToProps = function (state) {
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(actions, dispatch) };
 };
 
