@@ -73,7 +73,7 @@ class PrefView extends Component {
             }
           </div>
         </div>
-        <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
+        <button className="btn btn-lg btn-success btn-block" onClick={this.handleSubmit.bind(this)}>Save Preferences</button>
       </div>
     );
   }
