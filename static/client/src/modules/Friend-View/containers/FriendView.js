@@ -22,6 +22,7 @@ class FriendView extends Component {
     this.state = {
       allUsers: [],
       searchTerm: '',
+      selectedFriends: [],
     };
     this.addFriend = this.addFriend.bind(this);
   }
@@ -50,6 +51,11 @@ class FriendView extends Component {
 
   addFriend(friendId) {
     this.props.actions.addFriend(friendId);
+    this.state.selectedFriends.push(friendId);
+  }
+
+  isFriend(friendId) {
+    console.log('isFriend', friendId);
   }
 
   handleSubmit() {
@@ -86,14 +92,15 @@ class FriendView extends Component {
         {filteredFriends.map((user, i) => {
           if (user.clientId !== self.props.user.clientId) {
             return (
-              <div className="FriendEntry-container" key={i} onClick={() => { this.addFriend(user.clientId); }}>
+              <div className={'FriendEntry-container ' + (this.isFriend(user.clientId) ? 'selected' : '')} key={i} onClick={() => { this.addFriend(user.clientId); }}>
                 <div className="FriendEntry-fields">{user.name}</div>
                 <div className="FriendEntry-fields">{user.email}</div>
               </div>
             );
           }
         })}
-        <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
+
+        <button className="btn btn-lg btn-success btn-block" onClick={this.handleSubmit.bind(this)}>Add Friends</button>
       </div>
     );
   }

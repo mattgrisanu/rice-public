@@ -56,3 +56,20 @@ $border-radius: 4px;
     }
   }
 }
+
+.FriendEntry-container {
+  padding: 5px;
+  margin-bottom: 20px;
+
+  border: 1px solid $brand-highlight;
+  border-radius: $border-radius;
+
+  &:hover {
+    background: $brand-highlight;
+  }
+
+  &.selected {
+    background: $brand-medium;
+    color: $brand-white;
+  }
+}
