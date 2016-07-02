@@ -81,5 +81,10 @@ $border-radius: 4px;
     &:hover {
       background: $brand-highlight;
     }
+
+    &.selected {
+      background: $brand-medium;
+      color: $brand-white;
+    }
   }
 }
