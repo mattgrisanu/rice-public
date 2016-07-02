@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import SearchInput, { createFilter } from 'react-search-input';
 import axios2 from './../../../utils/api';
 import axios from 'axios';
+import './FriendView.scss';
 
 const userURL = 'http://localhost:3001/api';
 const instance = axios.create({
@@ -27,6 +28,12 @@ class FriendView extends Component {
 
   componentWillMount() {
     this.getAllUsers();
+  }
+
+  componentDidMount() {
+    // add form-control class to SearchInput input field
+    const search = document.getElementsByClassName('form-group')[0].getElementsByTagName('input')[0];
+    search.className += ' form-control';
   }
 
   getAllUsers() {
@@ -67,9 +74,15 @@ class FriendView extends Component {
   render() {
     const filteredFriends = this.state.allUsers.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
     const self = this;
+
     return (
-      <div className="FriendView-container">
-       <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+      <div className="FriendView">
+        <div className="heading heading-friends"><h3>Select Your Friends</h3></div>
+
+        <form className="form-inline">
+          <SearchInput className="form-group" onChange={this.searchUpdated.bind(this)} />
+        </form>
+
         {filteredFriends.map((user, i) => {
           if (user.clientId !== self.props.user.clientId) {
             return (
