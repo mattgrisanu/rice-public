@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Navbar from '../components/Navbar';
 import './Core.scss';
 
@@ -10,7 +11,7 @@ function CoreLayout({ children }) {
         <div className="row">
           <div className="col-md-3"></div>
           <div className="col-md-6">
-            <h1 className="heading">Rice</h1>
+            <Link to="/home"><h1 className="heading">Rice</h1></Link>
           </div>
           <div className="col-md-3"></div>
         </div>

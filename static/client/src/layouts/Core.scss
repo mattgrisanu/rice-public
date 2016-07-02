@@ -12,8 +12,22 @@ $brand-shadow: rgba(0, 0, 0, 0.2);
 $border-radius: 4px;
 
 /* Top Level Styles */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   background: $brand-highlight;
+  color: $brand-medium;
+}
+
+a, a:hover, a:visited, a:active {
+  text-decoration: none;
+  color: $brand-black;
 }
 
 h1.heading {
@@ -34,5 +48,5 @@ h1.heading {
   background: $brand-white;
 
   border-radius: $border-radius;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 2px 1px $brand-shadow;
 }

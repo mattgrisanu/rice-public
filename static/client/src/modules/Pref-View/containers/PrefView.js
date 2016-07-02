@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import PrefEntry from './../components/PrefEntry';
 import api from '../../../utils/api';
+import './PrefView.scss';
 
 const userURL = 'http://localhost:3001/api';
 
@@ -57,16 +58,29 @@ class PrefView extends Component {
 
   render() {
     return (
-      <div className="PrefView-container">
-        <form className="form-inline">
-          <div className="form-group">
-            <input type="text" className="form-control" id="userName" placeholder="Name"></input>
+      <div className="PrefView">
+        <div className="PrefView-container">
+          <div className="heading heading-name"><h3>Enter Your Name</h3></div>
+
+          <form className="form-inline">
+            <div className="form-group">
+              <input type="text" className="form-control" id="userName" placeholder="Full Name"></input>
+            </div>
+          </form>
+
+          <div className="PrefView-Preferences">
+            <div className="heading heading-cuisine"><h3>Select Your Cuisine Preferences</h3></div>
+
+            <div className="row">
+              {
+                this.props.preferences.cuisines.map((pref, i) =>
+                  <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />
+                )
+              }
+            </div>
           </div>
-        </form>
-        <div className="PrefView-Preferences">
-          {this.props.preferences.all.map((pref, i) => <PrefEntry {...this.props} addPref={this.addPref} key={i} pref_id={pref} />)}
+          <button className="btn btn-lg btn-success btn-block" onClick={this.handleSubmit.bind(this)}>Save Preferences</button>
         </div>
-        <button onClick={this.handleSubmit.bind(this)}>Done onboarding</button>
       </div>
     );
   }

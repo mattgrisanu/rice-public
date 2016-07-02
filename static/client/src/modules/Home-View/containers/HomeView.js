@@ -6,6 +6,7 @@ import { browserHistory, Link } from 'react-router';
 // import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import axios2 from './../../../utils/api';
+import './HomeView.scss';
 const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
@@ -30,9 +31,7 @@ class HomeView extends Component {
   }
 
   componentDidMount() {
-    this.getFriendsInfo();
     const { user, friends, location, preferences } = this.props;
-    // call this.getAllUsers() to update state with users from DB
   }
 
 
@@ -92,7 +91,7 @@ class HomeView extends Component {
     // })
     // .then(function (response) {
     //   console.log('db response for POST recommendation', response);
-    var response = { 
+    var response = {
     response: [{
       cuisine: "cafes",
       id: "unlessstring",
@@ -125,10 +124,13 @@ class HomeView extends Component {
 
   render() {
     return (
-      <div className="container HomeView-container">
-        <Dropdown options={locationsArr} onChange={this._onSelect} value="Location" placeholder="Select a Location" />
-        <button onClick={this.axiosSoloPost.bind(null)}>Solo</button>
-        <button><Link to="/group">Make Group</Link></button>
+      <div className="HomeView-container">
+        <div className="option option-location"><h3>Select Your Location</h3></div>
+        <Dropdown options={locationsArr} onChange={this._onSelect} value={locationsArr[0]} placeholder="Select Your Location" />
+
+        <div className="option option-solo" onClick={this.axiosSoloPost.bind(null)}><h3>Get a Solo Recommendation</h3></div>
+        <Link to="/group"><div className="option option-group"><h3>Get a Group Recommendation</h3></div></Link>
+        { this.props.restaurant.toRate ? <Link to="/rating"><div className="option option-rating"><h3>Rate Your Last Restaurant</h3></div></Link> : null }
       </div>
     );
   }
@@ -137,6 +139,7 @@ HomeView.propTypes = {
   user: React.PropTypes.object,
   friends: React.PropTypes.array,
   location: React.PropTypes.object,
+  restaurant: React.PropTypes.object,
 };
 
 const mapStateToProps = function mapStateToProps(state) {
@@ -145,6 +148,7 @@ const mapStateToProps = function mapStateToProps(state) {
     friends: state.user.friends,
     preferences: state.user.preferences,
     location: state.location,
+    restaurant: state.restaurant,
   };
 };
 
