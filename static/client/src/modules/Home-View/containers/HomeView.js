@@ -31,9 +31,7 @@ class HomeView extends Component {
   }
 
   componentDidMount() {
-    this.getFriendsInfo();
     const { user, friends, location, preferences } = this.props;
-    // call this.getAllUsers() to update state with users from DB
   }
 
 
