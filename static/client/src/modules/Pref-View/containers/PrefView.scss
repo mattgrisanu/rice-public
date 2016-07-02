@@ -12,7 +12,15 @@ $brand-shadow: rgba(0, 0, 0, 0.2);
 $border-radius: 4px;
 
 /* PrefView */
-.PrefView-Preferences {
+.PrefView {
+  .form-inline {
+    margin-bottom: 20px;
+  }
+
+  .form-group, .form-control {
+    width: 100%;
+  }
+
   .heading {
     width: 100%;
     height: 112px;
@@ -28,6 +36,10 @@ $border-radius: 4px;
 
     font-size: 20px;
     text-align: center;
+
+    &.heading-name {
+      background-image: url('../../../../assets/option-name-crop.jpg');
+    }
 
     &.heading-cuisine {
       background-image: url('../../../../assets/option-pref-crop.jpg');
