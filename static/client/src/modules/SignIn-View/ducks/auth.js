@@ -59,6 +59,14 @@ function lockError(err) {
   }
 }
 
+function getOptionsForAWS(token) {
+  return {
+    "id_token": token, 
+    "role":"arn:aws:iam::334429795694:role/access-to-ec2-per-user",
+    "principal": "arn:aws:iam::334429795694:saml-provider/auth0-provider"
+  }
+}
+
 export function login() {
   const lock = new Auth0Lock(DAN, auth0Namespace);
   const params = {
@@ -73,8 +81,20 @@ export function login() {
       }
       localStorage.setItem('profile', JSON.stringify(profile))
       localStorage.setItem('id_token', token)
-      dispatch(lockSuccess(profile, token))
-      browserHistory.push('/home');
+
+      const options = getOptionsForAWS(token);
+
+      const auth0 = new Auth0({
+        domain: auth0Namespace,
+        clientID: DAN,
+        callbackURL: 'dummy'
+      });
+
+      auth0.getDelegationToken(options, (err, delegationResult) => {
+        localStorage.setItem('awsCredentials', delegationResult.Credentials);
+        dispatch(lockSuccess(profile, token))
+        browserHistory.push('/home');
+      });
     })
   }
 }
@@ -100,6 +120,7 @@ export function logoutUser() {
     dispatch(requestLogout())
     localStorage.removeItem('id_token')
     localStorage.removeItem('profile')
+    localStorage.removeItem('awsCredentials')
     dispatch(receiveLogout())
   }
 }
