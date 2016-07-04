@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
-
 import Rater from 'react-rater';
 import './../RatingViewStyles.scss';
 
 export default class RatingEntry extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
-      review: ''
-    }
+      review: '',
+    };
   }
 
-  handleReviewSubmit () {
+  handleReviewSubmit() {
     this.setState({
-      review: document.getElementsByClassName('review')[0].value
+      review: document.getElementsByClassName('review')[0].value,
     }, function () { // make ajax
       this.props.onSubmit(this.state.review);
     });
   }
 
 
-  render () {
+  render() {
     return (
       <form target="_self" method="post">
         <Rater className="react-rater" onRate={this.props.onRating} />
@@ -30,7 +28,11 @@ export default class RatingEntry extends Component {
         <button type="button" className="btn btn-primary">Cancel</button>
         <button type="button" className="btn btn-primary" onClick={ this.handleReviewSubmit.bind(this) }>Submit Rating</button>
       </form>
-    )
+    );
   }
-
 }
+
+RatingEntry.propTypes = {
+  onSubmit: React.PropTypes.func,
+  onRating: React.PropTypes.func,
+};
