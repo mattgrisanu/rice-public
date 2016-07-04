@@ -2,6 +2,7 @@ var path = require('path');
 var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var ROOT_PATH = path.join(__dirname, 'client');
 
@@ -18,11 +19,15 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Legacy',
-            template: path.join(__dirname, 'index.html')
+            title: 'Thesis',
+            template: './index.ejs',
+            inject: false
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new CopyWebpackPlugin([
+            {from: 'public'}
+        ])
     ],
     module: {
         loaders: [
