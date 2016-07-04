@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Rater from 'react-rater';
-import './../RatingViewStyles.scss';
+import './RatingEntry.scss';
 
 export default class RatingEntry extends Component {
   constructor(props) {
