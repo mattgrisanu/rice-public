@@ -43,7 +43,6 @@ export default class RatingEntry extends Component {
               </div>
             </div>
           </form>
-
         </div>
       </div>
     );

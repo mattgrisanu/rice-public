@@ -1,11 +1,27 @@
-$react-rater-link: #ccc !default;
-$react-rater-hover: #666 !default;
-$react-rater-active: #000 !default;
+/* RatingEntry Styles      */
+/* ~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* Variables */
+$brand-black: rgb(41, 37, 44);
+$brand-white: rgb(255, 255, 255);
+$brand-dark: rgb(51, 49, 70);
+$brand-medium: rgb(54, 72, 94);
+$brand-highlight: rgb(214, 233, 236);
+$brand-shadow: rgba(0, 0, 0, 0.2);
+
+$border-radius: 4px;
+
+/* React Rater */
+$react-rater-link: $brand-highlight !default;
+$react-rater-hover: $brand-medium !default;
+$react-rater-active: $brand-medium !default;
 
 .react-rater {
   display: inline-block;
   line-height: normal;
+
   a {
+    font-size: 36px;
     cursor: pointer;
     color: $react-rater-link;
     &.will-be-active {
