@@ -6,12 +6,12 @@ import { browserHistory, Link } from 'react-router';
 // import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import axios2 from './../../../utils/api';
+import rec from '../../../utils/rec';
 import './HomeView.scss';
 const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
 const businessURL = 'http://localhost:3002/api';
-const recURL = 'http://first-371241559.us-east-1.elb.amazonaws.com/query';
 const userURL = 'http://localhost:3001/api';
 
 
@@ -31,9 +31,9 @@ class HomeView extends Component {
   }
 
   componentDidMount() {
-    const { user, friends, location, preferences } = this.props;
+    // TODO Do we need these? The variables aren't being used anywhere.
+    // const { user, friends, location, preferences } = this.props;
   }
-
 
   getFriendsInfo() {
     const user = this.props.user.clientId;
@@ -43,8 +43,7 @@ class HomeView extends Component {
     })
       .then(function (response) {
         console.log('db response for post users', response);
-        //action to update redux store user.friends
-        console.log(response.data)
+        console.log(response.data);
         this.props.actions.importFriends(response.data);
       }.bind(this))
       .catch(function (error) {
@@ -58,11 +57,10 @@ class HomeView extends Component {
     axios2(userURL, '/users/preferences', 'post', {
       clientId: user,
     })
-    .then(function(response) {
-      //call action to update user (response.data)
+    .then(function (response) {
       this.props.actions.importPreferences(response.data);
     }.bind(this))
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err);
     });
   }
@@ -75,51 +73,31 @@ class HomeView extends Component {
   }
 
   axiosSoloPost() {
-    //ADD addtributes that people are looking for
-    const users = [this.props.user.clientId].concat(this.props.friends);
-    const userPreferences = this.props.preferences;
-    const userLocation = this.props.location;
-    // axios2(recURL, '/filtered_recs', 'post', {
-    //   // user_ids: users,
-    //   // preferences: {
-    //   //   categories: userPreferences,
-    //   //   attributes: [],
-    //   // },
-    //   // location: userLocation,
-    //   users: users[0],
-    //   query: userPreferences[0],
-    // })
-    // .then(function (response) {
-    //   console.log('db response for POST recommendation', response);
-    var response = {
-    response: [{
-      cuisine: "cafes",
-      id: "unlessstring",
-      name: "The Beat Coffeehouse & Records",
-      rating: 0.20202,
-      userRated: false
-    },
-    {
-      cuisine: "french",
-      id: "unlessstring",
-      name: "Sunrise Coffee",
-      rating: 0.20202,
-      userRated: false
-    }]
-  }
-      this.props.actions.addRecs(response);
-      axios2(businessURL, '/business/yelp', 'post', response)
-        .then(function (successAdd) {
-          console.log('back from saving yelp data pushing user to /restaurant', successAdd.config.data);
-          browserHistory.push('/restaurant');
-        });
-    // }.bind(this))
-    // .catch(function (error) {
-    //   console.error(error);
-    // });
-    //ERASE AFTER DAN's REC is up
-          // browserHistory.push('/restaurant');
+    // TODO Do we need these? The variables aren't being used anywhere.
+    // const users = [this.props.user.clientId].concat(this.props.friends);
+    // const userPreferences = this.props.preferences;
+    // const userLocation = this.props.location;
 
+    rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post')
+    .then(response => {
+      console.log('[HomeView] Rec Response', response);
+
+      const recommendations = response.data.response;
+      this.props.actions.addRecs(recommendations);
+
+      // TODO Update to deployed service
+      // axios2(businessURL, '/business/yelp', 'post', recommendations)
+      //   .then(function (successAdd) {
+      //     console.log('back from saving yelp data pushing user to /restaurant', successAdd.config.data);
+      //     browserHistory.push('/restaurant');
+      //   });
+
+      // REMOVE After the above is connected to deployed service
+      browserHistory.push('/restaurant');
+    })
+    .catch(err => {
+      console.log('[HomeView] Rec Error', err);
+    });
   }
 
   render() {
@@ -135,7 +113,9 @@ class HomeView extends Component {
     );
   }
 }
+
 HomeView.propTypes = {
+  actions: React.PropTypes.object,
   user: React.PropTypes.object,
   friends: React.PropTypes.array,
   location: React.PropTypes.object,

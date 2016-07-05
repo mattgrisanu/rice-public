@@ -27,4 +27,4 @@ export default function request(baseURL, endpoint, method, params) {
   .catch(err => {
     console.log(err);
   });
-};
+}
