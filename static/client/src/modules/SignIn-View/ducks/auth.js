@@ -91,7 +91,9 @@ export function login() {
       });
 
       auth0.getDelegationToken(options, (err, delegationResult) => {
-        localStorage.setItem('awsCredentials', delegationResult.Credentials);
+        localStorage.setItem('awsAccessKey', delegationResult.Credentials.AccessKeyId);
+        localStorage.setItem('awsSecretKey', delegationResult.Credentials.SecretAccessKey);
+        localStorage.setItem('awsSessionToken', delegationResult.Credentials.SessionToken);
         dispatch(lockSuccess(profile, token))
         browserHistory.push('/home');
       });
@@ -120,7 +122,10 @@ export function logoutUser() {
     dispatch(requestLogout())
     localStorage.removeItem('id_token')
     localStorage.removeItem('profile')
-    localStorage.removeItem('awsCredentials')
+    localStorage.removeItem('awsAccessKey')
+    localStorage.removeItem('awsSecretKey')
+    localStorage.removeItem('awsSessionToken')
+
     dispatch(receiveLogout())
   }
 }

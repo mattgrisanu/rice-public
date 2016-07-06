@@ -1,10 +1,12 @@
 export default function getSecureApiClient() {
-  const awstoken = localStorage.getItem('awsCredentials');
+  const awsAccessKey = localStorage.getItem('awsAccessKey');
+  const awsSecretKey = localStorage.getItem('awsSecretKey');
+  const awsSessionToken = localStorage.getItem('awsSessionToken');
 
   return apigClientFactory.newClient({
-  	accessKey: awstoken.AccessKeyId,
-    secretKey: awstoken.SecretAccessKey,
-    sessionToken: awstoken.SessionToken,
-    region: 'us-west-2' // Set to your region
-  });
+    accessKey: awsAccessKey,
+    secretKey: awsSecretKey,
+    sessionToken: awsSessionToken,
+    region: 'us-west-2'// Set to your region
+  })();
 }
