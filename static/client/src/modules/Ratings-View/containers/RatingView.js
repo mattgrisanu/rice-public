@@ -20,6 +20,11 @@ export default class RatingView extends Component {
     };
   }
 
+  handleCancel() {
+    this.props.actions.hasRated();
+    browserHistory.push('/home');
+  }
+
   handleRatingClick(rating, lastRating) {
     if (lastRating !== undefined) {
       this.setState({ score: lastRating });
@@ -50,7 +55,7 @@ export default class RatingView extends Component {
     return (
       <div className="RatingView-container">
         <h2>{ this.props.business.name }</h2>
-        <RatingEntry onRating={ this.handleRatingClick.bind(this) } onSubmit={ this.handleSubmit.bind(this) } />
+        <RatingEntry onCancel={ this.handleCancel.bind(this) } onRating={ this.handleRatingClick.bind(this) } onSubmit={ this.handleSubmit.bind(this) } />
       </div>
     );
   }
