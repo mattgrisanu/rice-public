@@ -21,7 +21,6 @@ export default class RatingView extends Component {
   }
 
   handleCancel() {
-    this.props.actions.hasRated();
     browserHistory.push('/home');
   }
 
