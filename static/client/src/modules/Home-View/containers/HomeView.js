@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 import { actions } from './../ducks/home-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory, Link } from 'react-router';
-// import axios from 'axios';
 import Dropdown from 'react-dropdown';
-import axios2 from './../../../utils/api';
+
+import getSecureApiClient from '../../../utils/aws';
+// import axios2 from './../../../utils/api';
 import rec from '../../../utils/rec';
+
 import './HomeView.scss';
+
 const locationsArr = [
   'Las Vegas', 'San Francisco', 'Pokeball',
 ];
-const businessURL = 'http://localhost:3002/api';
-const userURL = 'http://localhost:3001/api';
+
+// const businessURL = 'http://localhost:3002/api';
+// const userURL = 'http://localhost:3001/api';
 
 
 class HomeView extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +28,7 @@ class HomeView extends Component {
     this._onSelect = this._onSelect.bind(this);
     this.axiosSoloPost = this.axiosSoloPost.bind(this);
   }
+
   componentWillMount() {
     this.importPreferences();
     this.getFriendsInfo();
@@ -38,30 +42,36 @@ class HomeView extends Component {
   getFriendsInfo() {
     const user = this.props.user.clientId;
 
-    axios2(userURL, '/users/friends', 'post', {
+    const apigClient = getSecureApiClient();
+    const body = {
       clientId: user,
+    };
+
+    apigClient.apiUsersFriendsPost({}, body)
+    .then(response => {
+      console.log('[HomeView] apiUsersFriendsPost response', response);
+      this.props.actions.importFriends(response.data);
     })
-      .then(function (response) {
-        console.log('db response for post users', response);
-        console.log(response.data);
-        this.props.actions.importFriends(response.data);
-      }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-        // handle user db error
-      });
+    .catch(error => {
+      console.log('[HomeView] apiUsersFriendsPost error', error);
+    });
   }
 
   importPreferences() {
     const user = this.props.user.clientId;
-    axios2(userURL, '/users/preferences', 'post', {
+
+    const apigClient = getSecureApiClient();
+    const body = {
       clientId: user,
-    })
-    .then(function (response) {
+    };
+
+    apigClient.apiUsersPreferencesPost({}, body)
+    .then(response => {
+      console.log('[HomeView] apiUsersPreferencesPost response', response);
       this.props.actions.importPreferences(response.data);
-    }.bind(this))
-    .catch(function (err) {
-      console.error(err);
+    })
+    .catch(error => {
+      console.log('[HomeView] apiUsersPreferencesPost error', error);
     });
   }
 
