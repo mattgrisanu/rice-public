@@ -143,6 +143,7 @@ HomeView.propTypes = {
   friends: React.PropTypes.array,
   location: React.PropTypes.object,
   restaurant: React.PropTypes.object,
+  preferences: React.PropTypes.object,
 };
 
 const mapStateToProps = function mapStateToProps(state) {
