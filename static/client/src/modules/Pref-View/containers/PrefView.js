@@ -4,10 +4,10 @@ import { actions } from './../ducks/pref-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import PrefEntry from './../components/PrefEntry';
-import api from '../../../utils/api';
 import './PrefView.scss';
+import getSecureApiClient from '../../../utils/aws';
 
-const userURL = 'http://localhost:3001/api';
+// const userURL = 'http://localhost:3001/api';
 
 class PrefView extends Component {
 
@@ -30,13 +30,24 @@ class PrefView extends Component {
   }
 
   saveUser() {
-    const user = this.props.user.name
-    api(userURL, '/users/user/update', 'post', {
-      name: user,
+    const apigClient = getSecureApiClient();
+    const params = {
+      // // This is where any modeled request parameters should be added.
+      // // The key is the parameter name, as it is defined in the API in API Gateway.
+      // param0: '',
+      // param1: ''
+    };
+
+    const body = {
+      // This is where you define the body of the request,
+      clientId: this.props.user.clientId,
+      name: this.props.user.name,
       email: this.props.user.email,
       isOnboarded: true,
       preferences: this.props.pickedPrefs,
-    })
+    };
+    console.log("BODY===>", body)
+    apigClient.apiUsersUserUpdatePost(params, body)
     .then((response) => {
       console.log('[PrefView] response', response);
       this.props.actions.isOnboarded();
