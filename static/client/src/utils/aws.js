@@ -8,5 +8,5 @@ export default function getSecureApiClient() {
     secretKey: awsSecretKey,
     sessionToken: awsSessionToken,
     region: 'us-west-2'// Set to your region
-  })();
+  });
 }
