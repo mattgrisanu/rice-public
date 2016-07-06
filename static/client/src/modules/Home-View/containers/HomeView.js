@@ -83,27 +83,40 @@ class HomeView extends Component {
   }
 
   axiosSoloPost() {
-    // TODO Do we need these? The variables aren't being used anywhere.
-    // const users = [this.props.user.clientId].concat(this.props.friends);
-    // const userPreferences = this.props.preferences;
-    // const userLocation = this.props.location;
+    const recommendationsOptions = {
+      'data': {
+        'obj': {
+          'user_ids': [this.props.user.clientId],
+          'preferences': {
+            'categories': [this.props.preferences],
+          },
+          'location': this.props.location,
+        },
+      },
+    };
 
-    rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post')
+    rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
     .then(response => {
       console.log('[HomeView] Rec Response', response);
 
       const recommendations = response.data.response;
       this.props.actions.addRecs(recommendations);
 
-      // TODO Update to deployed service
-      // axios2(businessURL, '/business/yelp', 'post', recommendations)
-      //   .then(function (successAdd) {
-      //     console.log('back from saving yelp data pushing user to /restaurant', successAdd.config.data);
-      //     browserHistory.push('/restaurant');
-      //   });
+      const apigClient = getSecureApiClient();
+      const body = { response: recommendations };
+      console.log(JSON.stringify(body, null, 2));
+
+      apigClient.apiBusinessYelpPost({}, body)
+      .then(responseYelp => {
+        console.log('[HomeView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
+        browserHistory.push('/restaurant');
+      })
+      .catch(errorYelp => {
+        console.log('[HomeView] apiBusinessYelpPost error', errorYelp);
+      });
 
       // REMOVE After the above is connected to deployed service
-      browserHistory.push('/restaurant');
+      // browserHistory.push('/restaurant');
     })
     .catch(err => {
       console.log('[HomeView] Rec Error', err);
