@@ -11,6 +11,10 @@ export default class RatingEntry extends Component {
     };
   }
 
+  handleCancel() {
+    this.props.onCancel();
+  }
+
   handleReviewSubmit() {
     this.setState({
       review: document.getElementsByClassName('review')[0].value,
@@ -35,7 +39,7 @@ export default class RatingEntry extends Component {
             <div className="form-group">
               <div className="row">
                 <div className="col-md-6">
-                  <button type="button" className="btn btn-lg btn-danger btn-block">Cancel</button>
+                  <button type="button" className="btn btn-lg btn-danger btn-block" onClick={ this.handleCancel.bind(this) }>Cancel</button>
                 </div>
                 <div className="col-md-6">
                   <button type="button" className="btn btn-lg btn-success btn-block" onClick={ this.handleReviewSubmit.bind(this) }>Submit Rating</button>
