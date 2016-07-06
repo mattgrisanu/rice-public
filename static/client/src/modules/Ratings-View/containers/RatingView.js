@@ -6,9 +6,10 @@ import { browserHistory } from 'react-router';
 import * as actions from './../ducks/rating-view-ducks';
 import RatingEntry from './../components/RatingEntry';
 
-import api from './../../../utils/api';
+import getSecureApiClient from './../../../utils/aws';
 
-const businessUrl = 'http://localhost:3002/api';
+const apigClient = getSecureApiClient();
+
 
 export default class RatingView extends Component {
   constructor(props) {
@@ -27,26 +28,22 @@ export default class RatingView extends Component {
 
   /** POST **/
   handleSubmit(txt) {
-    console.log('AJAX input =>', this.state, {
-      clientId: this.props.user.clientId,
-      business_id: this.props.business.business_id,
-      rating: this.state.score,
-      review: txt,
-    });
-
-    api(businessUrl, '/business/review', 'post', {
+    const body = {
       clientId: this.props.user.clientId,
       business_id: this.props.business.business_id,
       rating: this.state.score,
       review: txt
-    }).then(function (response) {
-      console.log(response);
-      // call action to change toRate to false in store
-      this.props.actions.hasRated();
-      browserHistory.push('/home');
-    }).catch(function (error) {
-      console.error(error);
-    });
+    };
+
+    apigClient.apiBusinessReviewPost(null, body)
+      .then(function (response) {
+        console.log(response);
+        // call action to change toRate to false in store
+        this.props.actions.hasRated();
+        browserHistory.push('/home');
+      }).catch(function (error) {
+        console.error(error);
+      });
   }
 
   render() {
