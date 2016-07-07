@@ -8,6 +8,8 @@ import SearchInput, { createFilter } from 'react-search-input';
 import getSecureApiClient from '../../../utils/aws';
 import rec from '../../../utils/rec';
 
+import './GroupView.scss';
+
 const KEYS_TO_FILTERS = ['name', 'email'];
 
 
@@ -22,6 +24,10 @@ class GroupView extends Component {
   }
 
   componentDidMount() {
+    // add form-control class to SearchInput input field
+    const search = document.getElementsByClassName('form-group')[0].getElementsByTagName('input')[0];
+    search.className += ' form-control';
+
     this.getFriendsInfo();
     this.addToGroup(this.props.user);
   }
@@ -113,8 +119,13 @@ class GroupView extends Component {
     const filteredFriends = this.props.friends.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
 
     return (
-      <div className="GroupView-container">
-        <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+      <div className="GroupView">
+        <div className="heading heading-friends"><h3>Select Friends</h3></div>
+
+        <form className="form-inline">
+          <SearchInput className="form-group" onChange={this.searchUpdated.bind(this)} />
+        </form>
+
         {filteredFriends.map((user, i) => {
           return (
             <div className="FriendEntry-container" key={i} onClick={() => {this.addToGroup(user); }}>
