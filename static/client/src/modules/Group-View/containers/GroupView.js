@@ -141,7 +141,7 @@ class GroupView extends Component {
             </div>
           );
         })}
-        <button onClick={this.handleSubmit.bind(this)}>Submit Group</button>
+        <button className="btn btn-lg btn-success btn-block" onClick={this.handleSubmit.bind(this)}>Get a Group Recommendation</button>
       </div>
     );
   }
