@@ -74,14 +74,14 @@ class GroupView extends Component {
       rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/Production/api/recommendation', 'post', recommendationsOptions)
       .then(recData => {
         console.log('[GroupView] recData', recData);
-        var recDataArr = recData.data.response.slice(0, 5);
+        const recDataArr = recData.data.response.slice(0, 5);
         // API Business Yelp
         // const apigClient = getSecureApiClient();
         const bodyYelp = { response: recDataArr };
 
         apigClient.apiBusinessYelpPost({}, bodyYelp)
         .then(responseYelp => {
-          const restNames = []
+          const restNames = [];
           responseYelp.data.forEach(name => {
             restNames.push(JSON.parse(JSON.stringify(name)));
           });

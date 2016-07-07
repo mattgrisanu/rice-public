@@ -14,6 +14,7 @@ let RestaurantView = React.createClass({
     restaurant: React.PropTypes.object,
     recommendation: React.PropTypes.array,
     group: React.PropTypes.object,
+    user: React.PropTypes.object,
   },
 
   componentDidMount() {
@@ -138,6 +139,7 @@ function mapStateToProps(state) {
     restaurant: state.restaurant,
     recommendation: state.recommendation,
     group: state.group,
+    user: state.user,
   };
 }
 

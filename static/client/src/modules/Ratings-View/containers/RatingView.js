@@ -26,7 +26,7 @@ export default class RatingView extends Component {
 
   handleRatingClick(rating, lastRating) {
     if (lastRating !== undefined) {
-      this.setState({ score: lastRating });
+      this.setState({ score: rating });
     }
   }
 
@@ -36,16 +36,16 @@ export default class RatingView extends Component {
       clientId: this.props.user.clientId,
       business_id: this.props.business.business_id,
       rating: this.state.score,
-      review: txt
+      review: txt,
     };
 
     apigClient.apiBusinessReviewPost(null, body)
-      .then(function (response) {
+      .then((response) => {
         console.log(response);
         // call action to change toRate to false in store
         this.props.actions.hasRated();
         browserHistory.push('/home');
-      }).catch(function (error) {
+      }).catch((error) => {
         console.error(error);
       });
   }
