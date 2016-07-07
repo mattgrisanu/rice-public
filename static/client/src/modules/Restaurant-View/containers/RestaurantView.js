@@ -59,7 +59,6 @@ let RestaurantView = React.createClass({
 
     // retrieve restaurant recommendations from store
     const recommendations = this.props.recommendation || mockRecommendations;
-
     // return the next recommendation in the store
     return recommendations[0] || undefined;
   },
@@ -97,21 +96,15 @@ let RestaurantView = React.createClass({
     //     },
     //   ];
     // });
-
     const apigClient = getSecureApiClient();
     const businessParams = {
-      name: encodeURIComponent(recommendation.name),
+      name: recommendation,
     };
+    console.log("THIS IS THE REC", businessParams)
 
     apigClient.apiBusinessInfoGet(businessParams, {})
     .then(response => {
       console.log('[RestaurantView] apiBusinessInfoGet response', response);
-      // if(response.data === '') {
-      //   this.props.actions.restaurantDecline();
-      // } else {
-      //   this.props.actions.restaurantUpdate(response.data);
-      // }
-      // take this out after Yelp call works
       this.props.actions.restaurantUpdate(response.data);
     })
     .catch(error => {

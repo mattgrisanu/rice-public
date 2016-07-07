@@ -71,26 +71,28 @@ class GroupView extends Component {
 
       console.log('[GroupView] recommendationsOptions', JSON.stringify(recommendationsOptions, null, 2));
 
-      rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
+      rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/Production/api/recommendation', 'post', recommendationsOptions)
       .then(recData => {
         console.log('[GroupView] recData', recData);
-        this.props.actions.addRecs(recData.data.response);
+        var recDataArr = recData.data.response.slice(0, 5);
+        // API Business Yelp
+        // const apigClient = getSecureApiClient();
+        const bodyYelp = { response: recDataArr };
 
-        // // API Business Yelp
-        // // const apigClient = getSecureApiClient();
-        // const bodyYelp = { response: recData.data.response };
+        apigClient.apiBusinessYelpPost({}, bodyYelp)
+        .then(responseYelp => {
+          const restNames = []
+          responseYelp.data.forEach(name => {
+            restNames.push(JSON.parse(JSON.stringify(name)));
+          });
 
-        // apigClient.apiBusinessYelpPost({}, bodyYelp)
-        // .then(responseYelp => {
-        //   console.log('[GroupView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
-        //   browserHistory.push('/restaurant');
-        // })
-        // .catch(errorYelp => {
-        //   console.log('[GroupView] apiBusinessYelpPost error', errorYelp);
-        // });
-
-        // REMOVE when Business Yelp is working
-        browserHistory.push('/restaurant');
+          this.props.actions.addRecs(restNames);
+          console.log('[GroupView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
+          browserHistory.push('/restaurant');
+        })
+        .catch(errorYelp => {
+          console.log('[GroupView] apiBusinessYelpPost error', errorYelp);
+        });
       })
       .catch(recError => {
         console.log('[GroupView] recError', recError);

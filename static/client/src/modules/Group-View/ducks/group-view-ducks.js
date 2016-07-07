@@ -30,10 +30,10 @@ module.exports = {
         prefArr,
       };
     },
-    addRecs(recObj) {
+    addRecs(recArr) {
       return {
         type: 'ADD_RECS',
-        recs: recObj,
+        recs: recArr,
       };
     },
   },
