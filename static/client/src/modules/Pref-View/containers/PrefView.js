@@ -32,10 +32,6 @@ class PrefView extends Component {
   saveUser() {
     const apigClient = getSecureApiClient();
     const params = {
-      // // This is where any modeled request parameters should be added.
-      // // The key is the parameter name, as it is defined in the API in API Gateway.
-      // param0: '',
-      // param1: ''
     };
 
     const body = {
@@ -46,7 +42,6 @@ class PrefView extends Component {
       isOnboarded: true,
       preferences: this.props.pickedPrefs,
     };
-    console.log("BODY===>", body)
     apigClient.apiUsersUserUpdatePost(params, body)
     .then((response) => {
       console.log('[PrefView] response', response);
@@ -96,6 +91,13 @@ class PrefView extends Component {
     );
   }
 }
+
+PrefView.propTypes = {
+  user: React.PropTypes.object,
+  pickedPrefs: React.PropTypes.array,
+  preferences: React.PropTypes.array,
+  actions: React.PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {
