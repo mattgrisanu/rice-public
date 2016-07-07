@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import axios from 'axios';
+
+import getSecureApiClient from '../../../utils/aws';
 // import MockAdapter from 'axios-mock-adapter';
-// import api from '../../utils/api';
 
 import * as actions from '../ducks/RestaurantView.actions';
 import RestaurantViewEntry from '../components/RestaurantView.entry';
@@ -97,15 +97,19 @@ let RestaurantView = React.createClass({
     //   ];
     // });
 
-    // retrieve restaurant data
-    axios.get('http://localhost:3002/api/business/info?name=' + encodeURIComponent(recommendation.name))
-      .then(function handleResponse(response) {
-        console.log('[RestaurantView] /api/business/info', response.data);
-        this.props.actions.restaurantUpdate(response.data);
-      }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-      });
+    const apigClient = getSecureApiClient();
+    const businessParams = {
+      name: encodeURIComponent(recommendation.name),
+    };
+
+    apigClient.apiBusinessInfoGet(businessParams, {})
+    .then(response => {
+      console.log('[RestaurantView] apiBusinessInfoGet response', response);
+      this.props.actions.restaurantUpdate(response.data);
+    })
+    .catch(error => {
+      console.log('[RestaurantView] apiBusinessInfoGet error', error);
+    });
   },
 
   render() {
