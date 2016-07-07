@@ -1,5 +1,5 @@
 const intialstate = {
-  recommendation: '',
+  recommendation: [],
 };
 
 const recommendation = (state = intialstate.recommendation, action) => {
