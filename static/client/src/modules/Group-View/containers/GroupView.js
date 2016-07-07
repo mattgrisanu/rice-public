@@ -28,7 +28,7 @@ class GroupView extends Component {
     // const { user, friends, group, location } = this.props;
 
     this.getFriendsInfo();
-    this.addToGroup(this.props.user.clientId);
+    this.addToGroup(this.props.user);
   }
 
   getFriendsInfo() {
@@ -47,8 +47,10 @@ class GroupView extends Component {
     });
   }
 
-  addToGroup(clientId) {
-    this.props.actions.addToGroup(clientId);
+  addToGroup(user) {
+    this.props.actions.addToGroup(user.clientId);
+    this.props.actions.addToGroupName(user.name);
+    this.props.actions.addToGroupEmail(user.email);
   }
 
   handleSubmit() {
@@ -77,7 +79,7 @@ class GroupView extends Component {
       rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
       .then(recData => {
         console.log('[GroupView] recData', recData);
-        this.props.actions.addRecs(recData.data.response);
+        // this.props.actions.addRecs(recData.data.response);
 
         // // API Business Yelp
         // // const apigClient = getSecureApiClient();
@@ -118,7 +120,7 @@ class GroupView extends Component {
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
         {filteredFriends.map((user, i) => {
           return (
-            <div className="FriendEntry-container" key={i} onClick={function () { this.addToGroup(user.clientId); }.bind(this)}>
+            <div className="FriendEntry-container" key={i} onClick={function () { this.addToGroup(user); }.bind(this)}>
               <div className="FriendEntry-fields">{user.name}</div>
               <div className="FriendEntry-fields">{user.email}</div>
             </div>

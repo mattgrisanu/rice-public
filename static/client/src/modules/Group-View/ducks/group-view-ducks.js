@@ -12,6 +12,18 @@ module.exports = {
         clientId,
       };
     },
+    addToGroupName(name) {
+      return {
+        type: 'ADD_TO_GROUP_NAME',
+        name,
+      };
+    },
+    addToGroupEmail(email) {
+      return {
+        type: 'ADD_TO_GROUP_EMAIL',
+        email,
+      };
+    },
     importGroupPref(prefArr) {
       return {
         type: 'IMPORT_GROUP_PREF',
