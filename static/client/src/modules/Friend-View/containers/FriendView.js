@@ -5,14 +5,10 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 // import FriendEntry from './../components/FriendEntry';
 import SearchInput, { createFilter } from 'react-search-input';
-import axios2 from './../../../utils/api';
-import axios from 'axios';
+import getSecureApiClient from '../../../utils/aws';
+
 import './FriendView.scss';
 
-const userURL = 'http://localhost:3001/api';
-const instance = axios.create({
-  baseURL: 'http://localhost:3001/api',
-});
 const KEYS_TO_FILTERS = ['name', 'email'];
 
 class FriendView extends Component {
@@ -38,7 +34,18 @@ class FriendView extends Component {
   }
 
   getAllUsers() {
-    instance.get('/users/users')
+    const apigClient = getSecureApiClient();
+    const params = {
+      // // This is where any modeled request parameters should be added.
+      // // The key is the parameter name, as it is defined in the API in API Gateway.
+      // param0: '',
+      // param1: ''
+    };
+
+    const body = {
+      // This is where you define the body of the request,
+    };
+    apigClient.apiUsersUsersGet(params, body)
       .then((response) => {
         this.setState({
           allUsers: response.data,
@@ -55,15 +62,21 @@ class FriendView extends Component {
   }
 
   isFriend(friendId) {
-    console.log('isFriend', friendId);
+    return (this.state.selectedFriends.indexOf(friendId) > -1);
   }
 
   handleSubmit() {
-    axios2(userURL, '/users/friends/new', 'post', {
+    const apigClient = getSecureApiClient();
+    const params = {
+    };
+
+    const body = {
       clientId: this.props.user.clientId,
       friends: this.props.friends,
-    })
+    };
+    apigClient.apiUsersFriendsNewPost(params, body)
     .then((response) => {
+      console.log(response);
       browserHistory.push('/home');
     })
     .catch((error) => {
@@ -106,6 +119,11 @@ class FriendView extends Component {
   }
 }
 
+FriendView.propTypes = {
+  user: React.PropTypes.object,
+  friends: React.PropTypes.array,
+  actions: React.PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {
