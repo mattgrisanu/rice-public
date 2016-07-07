@@ -19,6 +19,7 @@ class GroupView extends Component {
     super(props);
     this.state = {
       searchTerm: '',
+      selectedPreferences: [],
     };
     this.addToGroup = this.addToGroup.bind(this);
   }
@@ -48,10 +49,16 @@ class GroupView extends Component {
     });
   }
 
+  isSelected(user) {
+    return (this.state.selectedPreferences.indexOf(user) > -1);
+  }
+
   addToGroup(user) {
     this.props.actions.addToGroup(user.clientId);
     this.props.actions.addToGroupName(user.name);
     this.props.actions.addToGroupEmail(user.email);
+
+    this.state.selectedPreferences.push(user);
   }
 
   handleSubmit() {
@@ -120,7 +127,7 @@ class GroupView extends Component {
 
     return (
       <div className="GroupView">
-        <div className="heading heading-friends"><h3>Select Friends</h3></div>
+        <div className="heading heading-friends"><h3>Select Your Group</h3></div>
 
         <form className="form-inline">
           <SearchInput className="form-group" onChange={this.searchUpdated.bind(this)} />
@@ -128,7 +135,7 @@ class GroupView extends Component {
 
         {filteredFriends.map((user, i) => {
           return (
-            <div className="FriendEntry-container" key={i} onClick={() => {this.addToGroup(user); }}>
+            <div className={'FriendEntry-container ' + (this.isSelected(user) ? 'selected' : '')} key={i} onClick={() => {this.addToGroup(user); }}>
               <div className="FriendEntry-fields">{user.name}</div>
               <div className="FriendEntry-fields">{user.email}</div>
             </div>
