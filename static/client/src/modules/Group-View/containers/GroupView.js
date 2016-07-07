@@ -6,12 +6,10 @@ import { browserHistory } from 'react-router';
 import SearchInput, { createFilter } from 'react-search-input';
 
 import getSecureApiClient from '../../../utils/aws';
-import axios2 from './../../../utils/api';
 import rec from '../../../utils/rec';
 
 const KEYS_TO_FILTERS = ['name', 'email'];
-const businessURL = 'http://localhost:3002/api';
-const userURL = 'http://localhost:3001/api';
+
 
 class GroupView extends Component {
 
@@ -24,9 +22,6 @@ class GroupView extends Component {
   }
 
   componentDidMount() {
-    // TODO Do we need these? The variables aren't being used anywhere.
-    // const { user, friends, group, location } = this.props;
-
     this.getFriendsInfo();
     this.addToGroup(this.props.user);
   }
@@ -120,7 +115,7 @@ class GroupView extends Component {
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
         {filteredFriends.map((user, i) => {
           return (
-            <div className="FriendEntry-container" key={i} onClick={function () { this.addToGroup(user); }.bind(this)}>
+            <div className="FriendEntry-container" key={i} onClick={() => {this.addToGroup(user); }}>
               <div className="FriendEntry-fields">{user.name}</div>
               <div className="FriendEntry-fields">{user.email}</div>
             </div>
@@ -140,7 +135,7 @@ GroupView.propTypes = {
   location: React.PropTypes.object,
 };
 
-const mapStateToProps = function (state) {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     friends: state.user.friends,
@@ -149,7 +144,7 @@ const mapStateToProps = function (state) {
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(actions, dispatch) };
 };
 
