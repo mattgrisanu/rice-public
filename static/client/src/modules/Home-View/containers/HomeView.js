@@ -102,21 +102,21 @@ class HomeView extends Component {
       const recommendations = response.data.response;
       this.props.actions.addRecs(recommendations);
 
-      const apigClient = getSecureApiClient();
-      const body = { response: recommendations };
-      console.log(JSON.stringify(body, null, 2));
+      // const apigClient = getSecureApiClient();
+      // const body = { response: recommendations };
+      // console.log(JSON.stringify(body, null, 2));
 
-      apigClient.apiBusinessYelpPost({}, body)
-      .then(responseYelp => {
-        console.log('[HomeView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
-        browserHistory.push('/restaurant');
-      })
-      .catch(errorYelp => {
-        console.log('[HomeView] apiBusinessYelpPost error', errorYelp);
-      });
+      // apigClient.apiBusinessYelpPost({}, body)
+      // .then(responseYelp => {
+      //   console.log('[HomeView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
+      //   browserHistory.push('/restaurant');
+      // })
+      // .catch(errorYelp => {
+      //   console.log('[HomeView] apiBusinessYelpPost error', errorYelp);
+      // });
 
       // REMOVE After the above is connected to deployed service
-      // browserHistory.push('/restaurant');
+      browserHistory.push('/restaurant');
     })
     .catch(err => {
       console.log('[HomeView] Rec Error', err);
@@ -143,7 +143,7 @@ HomeView.propTypes = {
   friends: React.PropTypes.array,
   location: React.PropTypes.object,
   restaurant: React.PropTypes.object,
-  preferences: React.PropTypes.object,
+  preferences: React.PropTypes.array,
 };
 
 const mapStateToProps = function mapStateToProps(state) {

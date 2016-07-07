@@ -4,12 +4,14 @@ import { actions } from './../ducks/group-view-ducks.js';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import SearchInput, { createFilter } from 'react-search-input';
+
+import getSecureApiClient from '../../../utils/aws';
 import axios2 from './../../../utils/api';
+import rec from '../../../utils/rec';
 
 const KEYS_TO_FILTERS = ['name', 'email'];
 const businessURL = 'http://localhost:3002/api';
 const userURL = 'http://localhost:3001/api';
-const recURL = 'http://localhost:5000/api';
 
 class GroupView extends Component {
 
@@ -22,26 +24,27 @@ class GroupView extends Component {
   }
 
   componentDidMount() {
-    const { user, friends, group, location } = this.props;
+    // TODO Do we need these? The variables aren't being used anywhere.
+    // const { user, friends, group, location } = this.props;
+
     this.getFriendsInfo();
     this.addToGroup(this.props.user.clientId);
   }
 
   getFriendsInfo() {
-    // var user = this.props.user.usder_id
-    axios2(userURL, '/users/friends', 'post', {
+    const apigClient = getSecureApiClient();
+    const body = {
       clientId: this.props.user.clientId,
+    };
+
+    apigClient.apiUsersFriendsPost({}, body)
+    .then(response => {
+      console.log('[GroupView] apiUsersFriendsPost response', response);
+      this.props.actions.importFriends(response.data);
     })
-      .then(function (response) {
-        console.log('db response for GET users', response);
-        //action to update redux store user.friends
-        console.log(response.data)
-        this.props.actions.importFriends(response.data);
-      }.bind(this))
-      .catch(function (error) {
-        console.log(error);
-        // handle user db error
-      });
+    .catch(error => {
+      console.log('[GroupView] apiUsersFriendsPost error', error);
+    });
   }
 
   addToGroup(clientId) {
@@ -49,45 +52,102 @@ class GroupView extends Component {
   }
 
   handleSubmit() {
-    const self = this;
-    console.log("Group VIEW handleSubmit", self.props.group.users);
-    const group  = self.props.group.users;
-    const groupPref = self.props.group.preferences;
-    const userLocation = self.props.location;
+    // API Group Preferences
+    const apigClient = getSecureApiClient();
+    const groupPreferences = {
+      clientId: this.props.user.clientId,
+      group: this.props.group.users,
+    };
+    console.log('groupUsers', JSON.stringify(groupPreferences, null, 2));
 
-    axios2(userURL, '/users/group/preferences', 'post', {
-      group,
-    })
-      .then(function (response) {
-        console.log('db response for get friends preferences', response.data);
-        //save response preferences back to action group preferences
-        self.props.actions.importGroupPref(response.data);
-        //send group preferences to axiospostRec
-        axios2(recURL, '/recommendation/getRec', 'post', {
-          user_ids: group,
-          preferences: {
-            categories: groupPref,
-            attributes: [],
-          },
-          location: userLocation,
-        })
-        .then(function (recData) {
-          console.log('db recData for POST recommendation', recData.data);
-          self.props.actions.addRecs(recData);
-          axios2(businessURL, '/business/yelp', 'post', recData)
-            .then(function (successAdd) {
-              console.log('back from saving yelp data pushing user to /restaurant', successAdd);
-              browserHistory.push('/restaurant');
-            })
-          .catch(function (error) {
-            console.log(error);
-          });
-        })
-      .catch(function (error) {
-        console.log(error);
-        // need to handle friend db error
+    apigClient.apiUsersGroupPreferencesPost({}, groupPreferences)
+    .then(response => {
+      console.log('[GroupView] apiUsersGroupPreferencesPost response', response);
+      this.props.actions.importGroupPref(response.data);
+
+      // API Recommendations
+      const recommendationsOptions = { data: { obj: {
+        'user_ids': this.props.group.users,
+        'preferences': { 'categories': this.props.group.preferences },
+        'location': 'Las Vegas',
+      } } };
+
+      console.log('[GroupView] recommendationsOptions', JSON.stringify(recommendationsOptions, null, 2));
+
+      rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
+      .then(recData => {
+        console.log('[GroupView] recData', recData);
+        this.props.actions.addRecs(recData.data.response);
+
+        // // API Business Yelp
+        // // const apigClient = getSecureApiClient();
+        // const bodyYelp = { response: recData.data.response };
+
+        // apigClient.apiBusinessYelpPost({}, bodyYelp)
+        // .then(responseYelp => {
+        //   console.log('[GroupView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
+        //   browserHistory.push('/restaurant');
+        // })
+        // .catch(errorYelp => {
+        //   console.log('[GroupView] apiBusinessYelpPost error', errorYelp);
+        // });
+
+        // REMOVE when Business Yelp is working
+        browserHistory.push('/restaurant');
+      })
+      .catch(recError => {
+        console.log('[GroupView] recError', recError);
       });
+    })
+    .catch(error => {
+      console.log('[Group View] apiUsersGroupPreferencesPost error', error);
     });
+
+    // ///////
+
+    // axios2(userURL, '/users/group/preferences', 'post', this.props.group.users)
+    // .then(function (response) {
+    //   console.log('db response for get friends preferences', response.data);
+
+    //   // save response preferences back to action group preferences
+    //   self.props.actions.importGroupPref(response.data);
+
+    //   console.log('[GroupView] groupUsers', this.props.group.users);
+    //   console.log('[GroupView] groupPrefs', this.props.group.preferences);
+    //   console.log('[GroupView] location', this.props.location);
+
+    //   const recommendationsOptions = {
+    //     'data': {
+    //       'obj': {
+    //         'user_ids': [this.props.group.users],
+    //         'preferences': {
+    //           'categories': [this.props.group.preferences],
+    //         },
+    //         'location': this.props.location,
+    //       },
+    //     },
+    //   };
+
+    //   console.log('[GroupView] recommendationsOptions', recommendationsOptions);
+
+    //   rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
+    //   .then(function (recData) {
+    //     console.log('db recData for POST recommendation', recData.data);
+    //     self.props.actions.addRecs(recData);
+    //     axios2(businessURL, '/business/yelp', 'post', recData)
+    //       .then(function (successAdd) {
+    //         console.log('back from saving yelp data pushing user to /restaurant', successAdd);
+    //         browserHistory.push('/restaurant');
+    //       })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //     // need to handle friend db error
+    //   });
+    // });
   }
 
   searchUpdated(term) {
@@ -96,22 +156,19 @@ class GroupView extends Component {
     });
   }
 
-
   render() {
     const filteredFriends = this.props.friends.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
-    const self = this;
 
     return (
       <div className="GroupView-container">
-        {console.log(this.props.friends)}
         <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
-        {filteredFriends.map((user, i) =>  {
+        {filteredFriends.map((user, i) => {
           return (
-            <div className='FriendEntry-container' key={i} onClick={function () { this.addToGroup(user.clientId) }.bind(this)}>
-              <div className='FriendEntry-fields'>{user.name}</div>
-              <div className='FriendEntry-fields'>{user.email}</div>
+            <div className="FriendEntry-container" key={i} onClick={function () { this.addToGroup(user.clientId); }.bind(this)}>
+              <div className="FriendEntry-fields">{user.name}</div>
+              <div className="FriendEntry-fields">{user.email}</div>
             </div>
-          )
+          );
         })}
         <button onClick={this.handleSubmit.bind(this)}>Submit Group</button>
       </div>
@@ -119,6 +176,13 @@ class GroupView extends Component {
   }
 }
 
+GroupView.propTypes = {
+  user: React.PropTypes.object,
+  actions: React.PropTypes.object,
+  friends: React.PropTypes.array,
+  group: React.PropTypes.object,
+  location: React.PropTypes.object,
+};
 
 const mapStateToProps = function (state) {
   return {
@@ -134,4 +198,5 @@ const mapDispatchToProps = function (dispatch) {
 };
 
 GroupView = connect(mapStateToProps, mapDispatchToProps)(GroupView);
+
 export default GroupView;
