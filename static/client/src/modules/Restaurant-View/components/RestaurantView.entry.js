@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import GoogleMap from 'google-map-react';
 import FontAwesome from 'react-fontawesome';
 import './RestaurantView.entry.scss';
+import getSecureApiClient from '../../../utils/aws';
 
 const RestaurantViewEntry = React.createClass({
   propTypes: {
@@ -12,6 +13,8 @@ const RestaurantViewEntry = React.createClass({
     restaurant: React.PropTypes.object,
     restaurantAccept: React.PropTypes.func,
     restaurantDecline: React.PropTypes.func,
+    actions: React.PropTypes.object,
+    group: React.PropTypes.object,
   },
 
   getDefaultProps() {
@@ -35,7 +38,30 @@ const RestaurantViewEntry = React.createClass({
 
   handleAccept() {
     this.props.actions.restaurantAccept();
-    browserHistory.push('/rating');
+    if (this.props.group.users.length > 1) {
+      const apigClient = getSecureApiClient();
+      const params = {
+      };
+
+      const body = {
+        // This is where you define the body of the request,
+        user_name: this.props.user.name,
+        business: this.props.restaurant,
+        group_emails: this.props.group.emails,
+        group_names: this.props.group.names,
+      };
+      console.log("BODY BEFORE POST", body);
+      apigClient.apiNotificationsPost(params, body)
+      .then((response) => {
+        console.log("SUCCESS from apiNotification", response);
+        browserHistory.push('/rating');
+      })
+      .catch((error) => {
+        console.log('[NotificationPost] error GOING TO post group info', error);
+      });
+    } else {
+      browserHistory.push('/rating');
+    }
   },
 
   handleDecline() {

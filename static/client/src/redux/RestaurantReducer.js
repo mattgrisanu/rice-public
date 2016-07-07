@@ -1,6 +1,5 @@
 const intialstate = {
   restaurant: {
-    restaurant_id: '',
   },
 };
 

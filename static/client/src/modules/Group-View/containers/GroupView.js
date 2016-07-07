@@ -74,7 +74,7 @@ class GroupView extends Component {
       rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
       .then(recData => {
         console.log('[GroupView] recData', recData);
-        // this.props.actions.addRecs(recData.data.response);
+        this.props.actions.addRecs(recData.data.response);
 
         // // API Business Yelp
         // // const apigClient = getSecureApiClient();
