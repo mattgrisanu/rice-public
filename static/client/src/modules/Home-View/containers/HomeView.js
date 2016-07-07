@@ -34,10 +34,6 @@ class HomeView extends Component {
     this.getFriendsInfo();
   }
 
-  componentDidMount() {
-    // TODO Do we need these? The variables aren't being used anywhere.
-    // const { user, friends, location, preferences } = this.props;
-  }
 
   getFriendsInfo() {
     const user = this.props.user.clientId;
@@ -95,28 +91,29 @@ class HomeView extends Component {
       },
     };
 
-    rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
+    rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/Production/api/recommendation', 'post', recommendationsOptions)
     .then(response => {
       console.log('[HomeView] Rec Response', response);
 
-      const recommendations = response.data.response;
-      this.props.actions.addRecs(recommendations);
+      const recDataArr = response.data.response.slice(0, 5);
+      // API Business Yelp
+      const apigClient = getSecureApiClient();
+      const bodyYelp = { response: recDataArr };
 
-      // const apigClient = getSecureApiClient();
-      // const body = { response: recommendations };
-      // console.log(JSON.stringify(body, null, 2));
+      apigClient.apiBusinessYelpPost({}, bodyYelp)
+      .then(responseYelp => {
+        const restNames = [];
+        responseYelp.data.forEach(name => {
+          restNames.push(JSON.parse(JSON.stringify(name)));
+        });
 
-      // apigClient.apiBusinessYelpPost({}, body)
-      // .then(responseYelp => {
-      //   console.log('[HomeView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
-      //   browserHistory.push('/restaurant');
-      // })
-      // .catch(errorYelp => {
-      //   console.log('[HomeView] apiBusinessYelpPost error', errorYelp);
-      // });
-
-      // REMOVE After the above is connected to deployed service
-      browserHistory.push('/restaurant');
+        this.props.actions.addRecs(restNames);
+        console.log('[HomeView] apiBusinessYelpPost response', JSON.stringify(responseYelp, null, 2));
+        browserHistory.push('/restaurant');
+      })
+      .catch(errorYelp => {
+        console.log('[HomeView] apiBusinessYelpPost error', errorYelp);
+      });
     })
     .catch(err => {
       console.log('[HomeView] Rec Error', err);
