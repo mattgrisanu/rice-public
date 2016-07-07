@@ -8,6 +8,8 @@ import SearchInput, { createFilter } from 'react-search-input';
 import getSecureApiClient from '../../../utils/aws';
 import rec from '../../../utils/rec';
 
+import './GroupView.scss';
+
 const KEYS_TO_FILTERS = ['name', 'email'];
 
 
@@ -17,11 +19,16 @@ class GroupView extends Component {
     super(props);
     this.state = {
       searchTerm: '',
+      selectedPreferences: [],
     };
     this.addToGroup = this.addToGroup.bind(this);
   }
 
   componentDidMount() {
+    // add form-control class to SearchInput input field
+    const search = document.getElementsByClassName('form-group')[0].getElementsByTagName('input')[0];
+    search.className += ' form-control';
+
     this.getFriendsInfo();
     this.addToGroup(this.props.user);
   }
@@ -42,10 +49,16 @@ class GroupView extends Component {
     });
   }
 
+  isSelected(user) {
+    return (this.state.selectedPreferences.indexOf(user) > -1);
+  }
+
   addToGroup(user) {
     this.props.actions.addToGroup(user.clientId);
     this.props.actions.addToGroupName(user.name);
     this.props.actions.addToGroupEmail(user.email);
+
+    this.state.selectedPreferences.push(user);
   }
 
   handleSubmit() {
@@ -113,17 +126,22 @@ class GroupView extends Component {
     const filteredFriends = this.props.friends.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
 
     return (
-      <div className="GroupView-container">
-        <SearchInput className="search-input" onChange={this.searchUpdated.bind(this)} />
+      <div className="GroupView">
+        <div className="heading heading-friends"><h3>Select Your Group</h3></div>
+
+        <form className="form-inline">
+          <SearchInput className="form-group" onChange={this.searchUpdated.bind(this)} />
+        </form>
+
         {filteredFriends.map((user, i) => {
           return (
-            <div className="FriendEntry-container" key={i} onClick={() => {this.addToGroup(user); }}>
+            <div className={'FriendEntry-container ' + (this.isSelected(user) ? 'selected' : '')} key={i} onClick={() => {this.addToGroup(user); }}>
               <div className="FriendEntry-fields">{user.name}</div>
               <div className="FriendEntry-fields">{user.email}</div>
             </div>
           );
         })}
-        <button onClick={this.handleSubmit.bind(this)}>Submit Group</button>
+        <button className="btn btn-lg btn-success btn-block" onClick={this.handleSubmit.bind(this)}>Get a Group Recommendation</button>
       </div>
     );
   }
