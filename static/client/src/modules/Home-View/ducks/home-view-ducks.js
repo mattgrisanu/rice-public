@@ -6,11 +6,11 @@ module.exports = {
         city,
       };
     },
-    addRecs(recObj) {
+    addRecs(recommendations) {
       console.log("IM HERE")
       return {
         type: 'ADD_RECS',
-        recs: recObj.response,
+        recs: recommendations,
       };
     },
     importPreferences(prefsArr) {
