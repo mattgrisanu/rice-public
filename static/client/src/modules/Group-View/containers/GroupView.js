@@ -102,52 +102,6 @@ class GroupView extends Component {
     .catch(error => {
       console.log('[Group View] apiUsersGroupPreferencesPost error', error);
     });
-
-    // ///////
-
-    // axios2(userURL, '/users/group/preferences', 'post', this.props.group.users)
-    // .then(function (response) {
-    //   console.log('db response for get friends preferences', response.data);
-
-    //   // save response preferences back to action group preferences
-    //   self.props.actions.importGroupPref(response.data);
-
-    //   console.log('[GroupView] groupUsers', this.props.group.users);
-    //   console.log('[GroupView] groupPrefs', this.props.group.preferences);
-    //   console.log('[GroupView] location', this.props.location);
-
-    //   const recommendationsOptions = {
-    //     'data': {
-    //       'obj': {
-    //         'user_ids': [this.props.group.users],
-    //         'preferences': {
-    //           'categories': [this.props.group.preferences],
-    //         },
-    //         'location': this.props.location,
-    //       },
-    //     },
-    //   };
-
-    //   console.log('[GroupView] recommendationsOptions', recommendationsOptions);
-
-    //   rec('https://in6ws55vnd.execute-api.us-west-2.amazonaws.com', '/TestingBusinessAndRec/api/recommendation', 'post', recommendationsOptions)
-    //   .then(function (recData) {
-    //     console.log('db recData for POST recommendation', recData.data);
-    //     self.props.actions.addRecs(recData);
-    //     axios2(businessURL, '/business/yelp', 'post', recData)
-    //       .then(function (successAdd) {
-    //         console.log('back from saving yelp data pushing user to /restaurant', successAdd);
-    //         browserHistory.push('/restaurant');
-    //       })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //     // need to handle friend db error
-    //   });
-    // });
   }
 
   searchUpdated(term) {
