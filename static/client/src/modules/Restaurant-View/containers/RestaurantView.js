@@ -13,6 +13,7 @@ let RestaurantView = React.createClass({
     actions: React.PropTypes.object,
     restaurant: React.PropTypes.object,
     recommendation: React.PropTypes.array,
+    group: React.PropTypes.object,
   },
 
   componentDidMount() {
@@ -105,6 +106,12 @@ let RestaurantView = React.createClass({
     apigClient.apiBusinessInfoGet(businessParams, {})
     .then(response => {
       console.log('[RestaurantView] apiBusinessInfoGet response', response);
+      // if(response.data === '') {
+      //   this.props.actions.restaurantDecline();
+      // } else {
+      //   this.props.actions.restaurantUpdate(response.data);
+      // }
+      // take this out after Yelp call works
       this.props.actions.restaurantUpdate(response.data);
     })
     .catch(error => {
@@ -137,6 +144,7 @@ function mapStateToProps(state) {
   return {
     restaurant: state.restaurant,
     recommendation: state.recommendation,
+    group: state.group,
   };
 }
 
