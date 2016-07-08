@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Navbar from '../components/Navbar';
 import './Core.scss';
 
 function CoreLayout({ children }) {
   return (
     <div className="app" id="app">
-      <Navbar/>
       <div className="container">
         <div className="row">
           <div className="col-md-3"></div>
