@@ -1,34 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { login, getUser, logoutUser } from '../ducks/auth';
+import './Signin.scss';
 
 class SignIn extends Component {
 	render() {
 		const { user: { isFetching, isAuthenticated }, loginStart, logoutUser } = this.props;
 		return (
-			<div className="center-block w-xxl w-auto-xs p-y-md">
-			  <div className="navbar">
-			    <div className="pull-center">
-			    </div>
-			  </div>
-			  <div className="p-a-md box-color r box-shadow-z1 text-color m-a">
-			    <div className="m-b text-sm">Sign in Below</div>
-			    <div>
-			      <button onClick={loginStart}>
-			      	Login
-			      </button>
-			      <button onClick={logoutUser}>
-			      	Logout
-			      </button>
-			    </div>
-			  </div>
+			<div className="SignInView">
+				<div className="row">
+					<div className="col-md-12">
+						<div className="rice-signin"></div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12">
+						<button className="btn btn-lg btn-success btn-block" onClick={loginStart}>Login</button>
+					</div>
+				</div>
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-  user: getUser(state)
+  user: getUser(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -38,6 +34,6 @@ const mapDispatchToProps = dispatch => ({
 	logoutUser() {
 		dispatch(logoutUser());
 	},
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
