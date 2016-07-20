@@ -88,6 +88,9 @@
 
 ## <a id="Architecture"></a>Architecture
 
+### System Diagram
+![alt text] (https://cloud.githubusercontent.com/assets/8594433/16996630/fe4151b8-4e66-11e6-987b-b75a767f6d35.png "Rice System Architecture")
+
 ### Directory Layout
 ```
 └── static
@@ -139,7 +142,10 @@
 - `POST` /api/users/group/preferences
 
 ## Team
-  - Dan Conger, Dan Fiore, Katherine Hao, Matt Naing
+[Dan Conger] (https://github.com/dconger)  
+[Dan Fiore] (https://github.com/taptapdan)  
+[Katherine Hao] (https://github.com/mashybuttons)  
+[Matt Naing] (https://github.com/mattgrisanu)
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
