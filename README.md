@@ -22,7 +22,7 @@
 ### Landing
 ![Landing Page] (https://cloud.githubusercontent.com/assets/8594433/17722510/6b8036c8-63e7-11e6-9c22-c0fb9198cfcb.png)
 
-### Login or Signup
+### Log In or Sign Up
 ![Login or Signup] (https://cloud.githubusercontent.com/assets/8594433/17722507/6b7f551e-63e7-11e6-8d1f-b7442ad25a72.png)
 
 ### Solo or Group
@@ -30,6 +30,9 @@
 
 ### Select Preferences
 ![Preferences] (https://cloud.githubusercontent.com/assets/8594433/17722509/6b7ffce4-63e7-11e6-970c-399c7eed41ef.png)
+
+### Review and Rating
+![Ratings] (https://cloud.githubusercontent.com/assets/8594433/17723583/fd88fffc-63ef-11e6-9930-d89717868af6.png)
 
 ## <a id="Getting-Started"></a> Getting Started
 #### 1. Clone the latest version
