@@ -43,7 +43,7 @@
   $ git clone https://github.com/dadamaka/rice
   $ cd rice
   ```
-  
+
 #### 2. Install Dependencies
   From within the root/static directory run the following command to install all dependencies:
 
@@ -59,7 +59,7 @@
     $ npm start
     ```
 2. Your server is now live at ```http://localhost:3000```
-        
+
 ## <a id="Architecture"></a>Architecture
 
 ### <a id="system"></a>System Diagram
@@ -73,20 +73,23 @@
     │   ├── fonts
     │   ├── public
     │   ├── src
-    │   │   ├── components
-    │   │   ├── containers
-    │   │   ├── layouts
-    │   │   ├── modules
-    │   │   │   ├── Friend-View
-    │   │   │   ├── Group-View
-    │   │   │   ├── Home-View
-    │   │   │   ├── Landing-View
-    │   │   │   ├── Pref-View
-    │   │   │   ├── Ratings-View
-    │   │   │   ├── Restaurant-View
-    │   │   │   └── SignIn-View
-    │   │   ├── redux
-    │   │   └── utils
+    │   │   ├── components           # Components shared by multiple views
+    │   │   ├── containers           # App-level container components
+    │   │   ├── layouts              # Layout Components
+    │   │   ├── modules              # React Components
+    │   │   │   ├── Friend-View      # Friend View Components
+    |   |   |   |   ├── components   # Contains view-level presentational components
+    |   |   |   |   ├── containers   # Contains view-level container components
+    |   |   |   |   ├── ducks        # Contains view-level Redux reducers
+    │   │   │   ├── Group-View       # Group View Components
+    │   │   │   ├── Home-View        # Home View Components
+    │   │   │   ├── Landing-View     # Landing View Components
+    │   │   │   ├── Pref-View        # Preference View Components
+    │   │   │   ├── Ratings-View     # Ratings View Components
+    │   │   │   ├── Restaurant-View  # Restaurant View Components
+    │   │   │   └── SignIn-View      # Sign In View Components
+    │   │   ├── redux                # Contains Redux reducers
+    │   │   └── utils                # Contains utility functions
     │   └── styles
     ├── node_modules
     ├── public
@@ -99,11 +102,11 @@
 
 ## <a id="Endpoint"></a>API Endpoints
 ### <a id="business"></a>[Business Service Endpoints] (https://github.com/dadamaka/rice-business)
-- `GET` /api/business/info  
-- `GET` /api/business/review  
-- `POST` /api/business/review  
-- `GET` /api/business/detail  
-- `POST` /api/business/yelp  
+- `GET` /api/business/info
+- `GET` /api/business/review
+- `POST` /api/business/review
+- `GET` /api/business/detail
+- `POST` /api/business/yelp
 
 ### <a id="users"></a>[Users Service Endpoints] (https://github.com/dadamaka/rice-users)
 
@@ -111,8 +114,8 @@
 - `POST` /api/users/user
 - `POST` /api/users/user/update
 - `POST` /api/users/friends
-- `POST` /api/users/friends/new  
-- `POST` /api/users/preferences  
+- `POST` /api/users/friends/new
+- `POST` /api/users/preferences
 - `POST` /api/users/preferences/update
 - `POST` /api/users/group/preferences
 
@@ -165,9 +168,9 @@
 - Notifcations
 
 ## <a id="Team"></a>Team
-[Dan Conger] (https://github.com/dconger)  
-[Dan Fiore] (https://github.com/taptapdan)  
-[Katherine Hao] (https://github.com/mashybuttons)  
+[Dan Conger] (https://github.com/dconger)
+[Dan Fiore] (https://github.com/taptapdan)
+[Katherine Hao] (https://github.com/mashybuttons)
 [Matt Naing] (https://github.com/mattgrisanu)
 
 ## <a id="Contributing"></a>Contributing
